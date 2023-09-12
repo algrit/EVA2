@@ -2,9 +2,7 @@ from django.db import models
 
 
 class BaseContent(models.Model):
-    """
-    Abstract class for Questions, Tests and Courses adds Title, DateTime fields and __str__ method
-    """
+    """Abstract Class for Questions, Tests and Courses models. Adds Title, DateTime fields and __str__ method"""
     title = models.CharField(max_length=40, unique=True, db_index=True)
     create_time = models.DateTimeField(auto_now_add=True, verbose_name='Time of creation')
     update_time = models.DateTimeField(auto_now=True, verbose_name='Time of last update')
