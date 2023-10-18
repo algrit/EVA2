@@ -1,3 +1,18 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-# Create your views here.
+from .forms import UserRegisterForm
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/users/add_info/')
+    form = UserRegisterForm()
+    return render(request, 'registration/register.html', context={'form': form})
+
+
+def add_info(request):
+    return render(request, 'registration/add_info.html')
