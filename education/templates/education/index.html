@@ -1,4 +1,12 @@
-hello world!
+{% extends 'base.html' %}
+
+{% block title %} EVA {% endblock %}
+
+{% block content %}
+<p>Hello, World!</p>
 <br>
 <br>
 <a href="{% url 'logout' %}">Logout</a>
+{% endblock %}
+
+
