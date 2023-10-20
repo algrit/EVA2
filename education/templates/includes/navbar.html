@@ -1,0 +1,35 @@
+{% load static %}
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <img src="{% static 'favicon.ico' %}" width="30" height="30" alt="">
+        <a href="{% url 'main' %}" class="navbar-brand ms-2">EVA2</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav me-auto me-2">
+                <li class="nav-item">
+                    <a href="" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">My courses</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">Blog</a>
+                </li>
+            </ul>
+
+            <form action="" class="d-flex">
+                <input type="search" placeholder="Search" class="form-control me-2">
+                <button class="btn btn-outline-success">Search</button>
+            </form>
+
+        </div>
+    </div>
+</nav>
