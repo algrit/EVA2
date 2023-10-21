@@ -7,3 +7,14 @@
   {% endfor %}
   <input type="submit" value="Submit">
 </form>
+
+
+
+        <form class="registration-form" method="post">
+            {% csrf_token %}
+            <input type="text" placeholder="name" />
+            <input type="password" placeholder="password" />
+            <input type="text" placeholder="email" />
+            <button>Create</button>
+            <p><a href="#">Log In</a></p>
+        </form>
