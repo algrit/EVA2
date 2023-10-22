@@ -24,12 +24,35 @@
                     <a href="" class="nav-link">Blog</a>
                 </li>
             </ul>
-
+            {% if user.is_authenticated %}
             <form action="" class="d-flex">
                 <input type="search" placeholder="Search" class="form-control me-2">
                 <button class="btn btn-outline-success">Search</button>
             </form>
+            {% else %}
+            <div class="d-flex">
+                <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</button>
+                <button class="btn btn-outline-success ms-2">Sign Up</button>
+            </div>
+            {% endif %}
 
         </div>
     </div>
 </nav>
+
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            {% include 'registration/login.html' %}
+
+
+<!--            <h1>asdasdas</h1>-->
+<!--            <div class="modal-header">-->
+<!--                <h1>HELLO EVA</h1>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <h1>HELLO EVA BODY</h1>-->
+<!--            </div>-->
+        </div>
+    </div>
+</div>

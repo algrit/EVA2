@@ -41,7 +41,8 @@ ROOT_URLCONF = 'EVA2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'EVA2/templates'],
+        'DIRS': [BASE_DIR / 'EVA2/templates',
+                 ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -93,7 +94,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'EVA2/static',
-                    BASE_DIR / 'users/static']
+                    BASE_DIR / 'users/static',
                     BASE_DIR / 'education/static',
                     ]
 
