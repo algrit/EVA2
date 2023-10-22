@@ -24,12 +24,49 @@
                     <a href="" class="nav-link">Blog</a>
                 </li>
             </ul>
-
+            {% if user.is_authenticated %}
             <form action="" class="d-flex">
                 <input type="search" placeholder="Search" class="form-control me-2">
                 <button class="btn btn-outline-success">Search</button>
             </form>
+            {% else %}
+            <div class="d-flex">
+                <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</button>
+                <button class="btn btn-outline-success ms-2">Sign Up</button>
+            </div>
+            {% endif %}
 
         </div>
     </div>
 </nav>
+
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+<!--            {% include 'registration/login.html' %}-->
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">EVA</h5>
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                        <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="password" class="form-control" id="inputLogin">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="password" name="password" class="form-control" id="inputPassword">
+                        </div>
+                    </div>
+                    <input type="hidden" name="next" value="{{ next }}">
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

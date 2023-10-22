@@ -41,7 +41,8 @@ ROOT_URLCONF = 'EVA2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'EVA2/templates'],
+        'DIRS': [BASE_DIR / 'EVA2/templates',
+                 ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
