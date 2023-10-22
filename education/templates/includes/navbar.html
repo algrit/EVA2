@@ -43,16 +43,27 @@
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            {% include 'registration/login.html' %}
-
-
-<!--            <h1>asdasdas</h1>-->
-<!--            <div class="modal-header">-->
-<!--                <h1>HELLO EVA</h1>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                <h1>HELLO EVA BODY</h1>-->
-<!--            </div>-->
+<!--            {% include 'registration/login.html' %}-->
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">EVA</h5>
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <div class="row mb-3">
+                        <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputLogin">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputPassword">
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
