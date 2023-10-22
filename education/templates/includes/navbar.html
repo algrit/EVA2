@@ -49,19 +49,22 @@
                 <button class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
             </div>
             <div class="modal-body">
-                <form action="">
+                <form method="post">
+                    {% csrf_token %}
                     <div class="row mb-3">
                         <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputLogin">
+                            <input type="text" name="password" class="form-control" id="inputLogin">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="inputPassword" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="inputPassword">
+                            <input type="password" name="password" class="form-control" id="inputPassword">
                         </div>
                     </div>
+                    <input type="hidden" name="next" value="{{ next }}">
+                    <input type="submit" value="Submit">
                 </form>
             </div>
         </div>
