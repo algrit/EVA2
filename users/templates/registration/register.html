@@ -7,6 +7,7 @@
         <form class="login-form" method="post">
             {% csrf_token %}
             <input type="text" placeholder="username" name="username">
+            {{ form.username.error_messages }}
             <input type="password" placeholder="password" name="password1" >
             <input type="password" placeholder="repeat password" name="password2">
             <button type="submit">Create user</button>
