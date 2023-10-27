@@ -1,0 +1,10 @@
+{% extends 'education/base.html' %}
+
+{% block content %}
+<h2>My courses:</h2>
+<div class="form-style">
+    {% for course in object_list %}
+        <form>{{course.title}}</form>
+    {% endfor %}
+</div>
+{% endblock %}
