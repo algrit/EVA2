@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
 
-from .models import Course
+from .models import Course, Test
 from django.shortcuts import render
 from django.contrib.auth import login, authenticate
 from users.forms import LoginForm
@@ -32,3 +32,13 @@ class CoursesListView(ListView):
 class CourseDetailView(DetailView):
     model = Course
     template_name = 'education/course_detail.html'
+
+
+class TestsListView(ListView):
+    model = Test
+    template_name = 'education/tests_list.html'
+
+
+class TestDetailView(DetailView):
+    model = Test
+    template_name = 'education/test_detail.html'
