@@ -1,0 +1,18 @@
+{% extends 'education/base.html' %}
+
+{% block content %}
+<h2>{{ object }}</h2>
+
+
+<div class="form-style">
+    {% for question in object.questions.all %}
+    <form>
+        Ttile: {{question.title}} <br> <br>
+        Question: {{question.question_text}} <br> <br>
+        Answer 1: {{question.correct_answer}} <br> <br>
+        Answer 2: {{question.incorrect_answer1}} <br> <br>
+        Answer 3: {{question.incorrect_answer2}} <br>
+    </form>
+    {% endfor %}
+</div>
+{% endblock %}
