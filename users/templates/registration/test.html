@@ -6,11 +6,18 @@
         <h1>EVA</h1>
         <form class="login-form" method="post">
             {% csrf_token %}
-            <input type="text" placeholder="username" name="username">
-            {{ form.username.error_messages.password_mismatch }}
-            <input type="password" placeholder="password" name="password1" >
-            <input type="password" placeholder="repeat password" name="password2">
+            <input type="text" placeholder="username" required name="username">
+            <input type="password" placeholder="password" required name="password1" >
+            <input type="password" placeholder="repeat password" required name="password2">
             <button type="submit">Create user</button>
         </form>
     </div>
 </div>
+
+
+
+        <form method="post">
+            {% csrf_token %}
+{{form}}
+            <button type="submit">Create user</button>
+        </form>
