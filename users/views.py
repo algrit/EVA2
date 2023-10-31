@@ -9,9 +9,7 @@ def register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/edu/index/')
-        else:
-            return render(request, 'registration/register.html', context={'form': form})
+            return HttpResponseRedirect('/edu/my/')
     else:
         form = UserRegisterForm()
     return render(request, 'registration/register.html', context={'form': form})
