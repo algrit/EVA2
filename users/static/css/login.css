@@ -1,16 +1,17 @@
-/* path -> static/css/login.css  */
+/* path -> users/static/css/login.css  */
 
 @import url(https://fonts.googleapis.com/css?family=Lato:300);
 
 .errorlist {
     font-family: "Lato", sans-serif;
+    color: FF0000;
     outline: 0;
     width: 90%;
     border: 0;
     margin: -12 0 15px;
     padding: 0px;
     box-sizing: border-box;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .login {

@@ -1,18 +1,27 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
 
-<div class="login">
-    <div class="form">
-        <h1>EVA</h1>
-        <form class="login-form" method="post">
-            {% csrf_token %}
-            <input type="text" placeholder="username" required name="username">
-            {{form.username.errors}}
-            <input type="password" placeholder="password" required name="password1" >
-            <input type="password" placeholder="repeat password" required name="password2">
-            {{form.password2.errors}}
-            <button type="submit">Create user</button>
-
-        </form>
-    </div>
-</div>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>EVA Registration</title>
+        <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    </head>
+    <body>
+        <div class="login">
+            <div class="form">
+                <h1>EVA</h1>
+                <form class="login-form" method="post">
+                    {% csrf_token %}
+                    <input type="text" placeholder="username" required name="username">
+                    {{form.username.errors}}
+                    <input type="password" placeholder="password" required name="password1">
+                    {{form.password1.errors}}
+                    <input type="password" placeholder="repeat password" required name="password2">
+                    {{form.password2.errors}}
+                    <button type="submit">Create user</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
