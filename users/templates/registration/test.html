@@ -1,6 +1,5 @@
 {% load static %}
 
-<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -14,11 +13,13 @@
                 <h1>EVA</h1>
                 <form class="login-form" method="post">
                     {% csrf_token %}
+
                     <input type="text" placeholder="username" required name="username">
-                    {{form.username.errors}}
-                    <input type="password" placeholder="password" required name="password1" >
+                    {{ form.username.errors }}
+                    <input type="password" placeholder="password" required name="password1">
+                    {{ form.password1.errors }}
                     <input type="password" placeholder="repeat password" required name="password2">
-                    {{form.password2.errors}}
+                    {{ form.password2.errors }}
                     <button type="submit">Create user</button>
                 </form>
             </div>

@@ -13,13 +13,15 @@
                 <h1>EVA</h1>
                 <form class="login-form" method="post">
                     {% csrf_token %}
-
-                    <input type="text" placeholder="username" required name="username">
+                    {{ form.username }}
                     {{ form.username.errors }}
-                    <input type="password" placeholder="password" required name="password1">
+                    {{ form.username.help_text }}
+                    {{ form.password1 }}
                     {{ form.password1.errors }}
-                    <input type="password" placeholder="repeat password" required name="password2">
+                    {{ form.password1.help_text }}
+                    {{ form.password2 }}
                     {{ form.password2.errors }}
+                    {{ form.password2.help_text }}
                     <button type="submit">Create user</button>
                 </form>
             </div>
