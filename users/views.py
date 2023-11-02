@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
 from .forms import UserRegisterForm
@@ -12,11 +12,14 @@ def register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            username = request.POST['username']
-            password = request.POST['password1']
+            username = request.cleaned_data['username']
+            password = request.cleaned_data['password1']
             user = authenticate(request, username=username, password=password)
-            login(request, user)
-            return HttpResponseRedirect('/users/success/')
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect('/users/success/')
+            else:
+                return HttpResponse('SOMETHING WRONG IN USER AUTH')
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', context={'form': form})

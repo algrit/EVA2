@@ -17,6 +17,6 @@ class UserRegisterForm(UserCreationForm):
         fields = ['username']
 
 
-class LoginForm(forms.Form):
-    username = forms.CharField(max_length=63)
+class ModalLoginForm(forms.Form):
+    username = forms.CharField(max_length=150)
     password = forms.CharField(max_length=63, widget=forms.PasswordInput)

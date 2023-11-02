@@ -16,21 +16,21 @@
 
 .login {
   width: 500px;
-  padding: 5% 0 0;
+  padding: 10% 0 0;
   margin: auto;
 }
-.form {
+.modal-content {
     position: relative;
-    z-index: 1;
+    z-index: auto;
     background: #FFFFFF;
     max-width: 360px;
-    margin: 0 auto 100 px;
-    padding: 45px;
+    margin: 100px auto auto;
+    padding: 10%;
     text-align: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   }
 
-.form input {
+.modal-content input {
     font-family: "Lato", sans-serif;
     outline: 0;
     background: #e7e4e4;
@@ -42,7 +42,7 @@
     font-size: 14px;
   }
 
-.form button {
+.modal-content button {
     font-family: "Lato", sans-serif;
     text-transform: uppercase;
     outline: 0;
