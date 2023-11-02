@@ -2,7 +2,7 @@
 
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <img src="{% static 'favicon.ico' %}" width="30" height="30" alt="">
+        <img src="{% static 'favicon.ico' %}" width="30" height="30">
         <a href="{% url 'main' %}" class="navbar-brand ms-2">EVA2</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                 aria-controls="navbarContent" aria-expanded="false">
@@ -29,6 +29,7 @@
                 <input type="search" placeholder="Search" class="form-control me-2">
                 <button class="btn btn-outline-success">Search</button>
             </form>
+            <a href="/users/logout/"><button class="btn btn-outline-success ms-2">Log Out</button></a>
             {% else %}
             <div class="d-flex">
                 <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</button>
