@@ -1,9 +1,12 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 
 class UserRegisterForm(UserCreationForm):
+    """This form inherits fields from base class, but adds placeholder attr"""
+
     def __init__(self, *args, **kwargs):
         super(UserRegisterForm, self).__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update(
@@ -17,6 +20,14 @@ class UserRegisterForm(UserCreationForm):
         fields = ['username']
 
 
-class ModalLoginForm(forms.Form):
-    username = forms.CharField(max_length=150)
-    password = forms.CharField(max_length=63, widget=forms.PasswordInput)
+class ModalLoginForm(AuthenticationForm):
+    """This form used in Login Modal Window of Navbar.
+    Inherits all methods of Base class, but I wanted to rewrite fields. Dunno, just for fun:)"""
+    username = UsernameField(widget=forms.TextInput(attrs={"autofocus": True,
+                                                           'placeholder': 'username'}))
+    password = forms.CharField(
+        label=_("Password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={"autocomplete": "current-password",
+                                          'placeholder': 'password'}),
+    )
