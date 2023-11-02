@@ -19,9 +19,9 @@ def register(request):
             return HttpResponseRedirect('/users/success/')
     else:
         form = UserRegisterForm()
-    return render(request, 'registration/register.html', context={'form': form})
+    return render(request, 'users/register.html', context={'form': form})
 
 
 def register_success(request):
     username = request.user
-    return render(request, 'registration/success.html', context={'username': username})
+    return render(request, 'users/success.html', context={'username': username})
