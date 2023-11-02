@@ -1,8 +1,9 @@
 {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/login_register.css' %}">
 
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <img src="{% static 'favicon.ico' %}" width="30" height="30" alt="">
+        <img src="{% static 'favicon.ico' %}" width="30" height="30">
         <a href="{% url 'main' %}" class="navbar-brand ms-2">EVA2</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                 aria-controls="navbarContent" aria-expanded="false">
@@ -29,6 +30,7 @@
                 <input type="search" placeholder="Search" class="form-control me-2">
                 <button class="btn btn-outline-success">Search</button>
             </form>
+            <a href="/users/logout/"><button class="btn btn-outline-success ms-2">Log Out</button></a>
             {% else %}
             <div class="d-flex">
                 <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</button>
@@ -43,30 +45,15 @@
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-<!--            {% include 'registration/login.html' %}-->
-            <div class="modal-header">
-                <h5 class="modal-title" id="loginModalLabel">EVA</h5>
-                <button class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="row mb-3">
-                        <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="password" class="form-control" id="inputLogin">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                        <div class="col-sm-10">
-                            <input type="password" name="password" class="form-control" id="inputPassword">
-                        </div>
-                    </div>
-                    <input type="hidden" name="next" value="{{ next }}">
-                    <input type="submit" value="Submit">
-                </form>
-            </div>
+            <form method="post">
+                <h2>EVA</h2>
+                {% csrf_token %}
+                {% for field in form %}
+                    {{ field }}
+                    {{ field.errors }}
+                {% endfor %}
+                <button type="submit">Login</button>
+            </form>
         </div>
     </div>
 </div>
