@@ -1,0 +1,19 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>EVA Registration</title>
+        <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    </head>
+    <body>
+            <div class="login">
+            <div class="form">
+                <h4>User successfully created</h4>
+                <h4>You have logged in as {{ username }}</h4>
+                <a href="/edu/my"><button type="button">Ok</button></a>
+            </div>
+        </div>
+    </body>
+</html>
