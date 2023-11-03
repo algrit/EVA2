@@ -12,8 +12,8 @@ def index(request):
         login_form = ModalLoginForm(request.POST)
         if login_form.is_valid():
             user = authenticate(
-                username=login_form.cleaned_data['username'],
-                password=login_form.cleaned_data['password'],
+                username=request.POST['username'],
+                password=request.POST['password'],
             )
             if user is not None:
                 login(request, user)
