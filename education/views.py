@@ -18,7 +18,7 @@ def index(request):
             if user is not None:
                 login(request, user)
             else:
-                return HttpResponse('SOMETHING WRONG IN USER AUTH')
+                return render(request, 'users/login.html')
     else:
         login_form = ModalLoginForm()
     return render(request, 'education/index.html', context={'form': login_form})
