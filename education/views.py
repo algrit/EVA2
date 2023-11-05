@@ -10,15 +10,14 @@ from .models import Course, Test
 def index(request):
     if request.method == 'POST':
         login_form = ModalLoginForm(request.POST)
-        if login_form.is_valid():
-            user = authenticate(
-                username=request.POST['username'],
-                password=request.POST['password'],
-            )
-            if user is not None:
-                login(request, user)
-            else:
-                return render(request, 'users/login.html')
+        user = authenticate(
+            username=request.POST['username'],
+            password=request.POST['password'],
+        )
+        if user is not None:
+            login(request, user)
+        else:
+            return render(request, 'users/login.html')
     else:
         login_form = ModalLoginForm()
     return render(request, 'education/index.html', context={'form': login_form})
