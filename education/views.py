@@ -9,11 +9,12 @@ from .models import Course, Test
 
 def index(request):
     if request.method == 'POST':
-        login_form = ModalLoginForm(request.POST)
-        user = authenticate(
-            username=request.POST['username'],
-            password=request.POST['password'],
-        )
+        login_form = ModalLoginForm(request, data=request.POST)
+        if login_form.is_valid():
+            user = authenticate(
+                username=login_form.cleaned_data['username'],
+                password=login_form.cleaned_data['password'],
+            )
         if user is not None:
             login(request, user)
         else:

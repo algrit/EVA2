@@ -10,10 +10,11 @@ def register(request):
     High-level authenticate based on built-in classes is in education/view.py"""
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
+        print(form.cleaned_data)
         if form.is_valid():
             form.save()
-            username = request.cleaned_data['username']
-            password = request.cleaned_data['password1']
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
