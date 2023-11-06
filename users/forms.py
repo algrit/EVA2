@@ -31,3 +31,8 @@ class ModalLoginForm(AuthenticationForm):
         widget=forms.PasswordInput(attrs={"autocomplete": "current-password",
                                           'placeholder': 'password'}),
     )
+
+# class ModalLoginForm(forms.ModelForm):
+#     class Meta:
+#         model = User
+#         fields = ['username', 'password']
