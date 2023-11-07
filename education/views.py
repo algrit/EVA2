@@ -1,5 +1,4 @@
 from django.contrib.auth import login, authenticate
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
@@ -9,19 +8,20 @@ from .models import Course, Test
 
 def index(request):
     if request.method == 'POST':
-        login_form = ModalLoginForm(request, data=request.POST)
+        login_form = ModalLoginForm(request,
+                                    data=request.POST)  # Somehow 1st argument of AuthenticationForm have to be 'request'
         if login_form.is_valid():
             user = authenticate(
                 username=login_form.cleaned_data['username'],
                 password=login_form.cleaned_data['password'],
             )
-        if user is not None:
-            login(request, user)
+            if user is not None:
+                login(request, user)
         else:
-            return render(request, 'users/login.html')
+            return render(request, 'users/login.html', context={'form': login_form})
     else:
         login_form = ModalLoginForm()
-    return render(request, 'education/index.html', context={'form': login_form})
+    return render(request, 'education/index.html', context={'form': login_form, 'username': request.user})
 
 
 class CoursesListView(ListView):

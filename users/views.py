@@ -29,3 +29,7 @@ def register(request):
 def register_success(request):
     username = request.user
     return render(request, 'users/success.html', context={'username': username})
+
+
+def acc_settings(request, user_pk):
+    return render(request, 'users/acc_settings.html', context={'user_pk': user_pk})
