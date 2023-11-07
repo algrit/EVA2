@@ -26,10 +26,16 @@
                 </li>
             </ul>
             {% if user.is_authenticated %}
-            <form action="" class="d-flex">
-                <input type="search" placeholder="Search" class="form-control me-2">
-                <button class="btn btn-outline-success">Search</button>
-            </form>
+<!--            SEARCH WILL BE ADDED LATER  !!!                -->
+<!--            <form action="" class="d-flex">-->
+<!--                <input type="search" placeholder="Search" class="form-control me-2">-->
+<!--                <button class="btn btn-outline-success">Search</button>-->
+<!--            </form>-->
+            <ul class="navbar-nav me-auto me-2">
+                <li class="nav-item">
+                    <a href="" class="nav-link">{{username}}</a>
+                </li>
+            </ul>
             <a href="/users/logout/"><button class="btn btn-outline-success ms-2">Log Out</button></a>
             {% else %}
             <div class="d-flex">
