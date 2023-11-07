@@ -1,46 +1,63 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/login_register.css' %}">
 
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <img src="{% static 'favicon.ico' %}" width="30" height="30">
         <a href="{% url 'main' %}" class="navbar-brand ms-2">EVA2</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-                aria-controls="navbarContent" aria-expanded="false">
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav me-auto me-2">
                 <li class="nav-item">
-                    <a href="" class="nav-link">Home</a>
+                    <a class="nav-link" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">My courses</a>
+                    <a class="nav-link" aria-current="page" href="#">My courses</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">About Us</a>
+                    <a class="nav-link" aria-current="page" href="#">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">Blog</a>
+                    <a class="nav-link" href="#">Blog</a>
                 </li>
             </ul>
             {% if user.is_authenticated %}
-<!--            SEARCH WILL BE ADDED LATER  !!!                -->
-<!--            <form action="" class="d-flex">-->
-<!--                <input type="search" placeholder="Search" class="form-control me-2">-->
-<!--                <button class="btn btn-outline-success">Search</button>-->
-<!--            </form>-->
-            <ul class="navbar-nav me-auto me-2">
-                <li class="nav-item">
-                    <a href="" class="nav-link">{{username}}</a>
+            <!--            SEARCH WILL BE ADDED LATER  !!!                -->
+            <!--            <form action="" class="d-flex">-->
+            <!--                <input type="search" placeholder="Search" class="form-control me-2">-->
+            <!--                <button class="btn btn-outline-success">Search</button>-->
+            <!--            </form>-->
+            <ul class="navbar-nav ms-auto ms-2">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false"> {{username}} </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/users/{{username}}">My account</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="/users/logout/">Log Out</a></li>
+                    </ul>
                 </li>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" aria-current="page" href="#">{{username}}</a>-->
+<!--                </li>-->
             </ul>
-            <a href="/users/logout/"><button class="btn btn-outline-success ms-2">Log Out</button></a>
+<!--            <a href="/users/logout/">-->
+<!--                <button class="btn btn-outline-success ms-2">Log Out</button>-->
+<!--            </a>-->
             {% else %}
             <div class="d-flex">
-                <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</button>
-                <a href="/users/register/"><button class="btn btn-outline-success ms-2">Sign Up</button></a>
+                <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Log In
+                </button>
+                <a href="/users/register/">
+                    <button class="btn btn-outline-success ms-2">Sign Up</button>
+                </a>
             </div>
             {% endif %}
 
@@ -55,8 +72,8 @@
                 <h2>EVA</h2>
                 {% csrf_token %}
                 {% for field in form %}
-                    {{ field }}
-                    {{ field.errors }}
+                {{ field }}
+                {{ field.errors }}
                 {% endfor %}
                 <button type="submit">Login</button>
             </form>
