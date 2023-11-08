@@ -32,5 +32,11 @@ def register_success(request):
 
 def acc_settings(request, id_user):
     user = User.objects.get(id=id_user)
-    form = AccountSettings(instance=user)
+    if request.method == 'POST':
+        form = AccountSettings(data=request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/users/success/')
+    else:
+        form = AccountSettings(instance=user)
     return render(request, 'users/acc_settings.html', context={'form': form, 'user': user})
