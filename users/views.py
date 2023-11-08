@@ -35,4 +35,4 @@ def register_success(request):
 def acc_settings(request, id_user):
     user = User.objects.get(id=id_user)
     form = AccountSettings(instance=user)
-    return render(request, 'users/acc_settings.html', context={'form': form, 'id_user': id_user})
+    return render(request, 'users/acc_settings.html', context={'form': form, 'user': user})

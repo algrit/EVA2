@@ -21,7 +21,7 @@ def index(request):
             return render(request, 'users/login.html', context={'form': login_form})
     else:
         login_form = ModalLoginForm()
-    return render(request, 'education/index.html', context={'form': login_form, 'username': request.user})
+    return render(request, 'education/index.html', context={'form': login_form, 'user': request.user})
 
 
 class CoursesListView(ListView):

@@ -1,6 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} Account settings - {{ user.username }} {% endblock %}
+
+{% block content %}
+{{ user.username }}
+{{ user.date_joined }}
+<br>
+<br>
+
 {% for field in form %}
 {{ field.label }}:
 {{ field }}
 <br>
 <br>
 {% endfor %}
+{% endblock %}
