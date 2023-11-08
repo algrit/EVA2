@@ -7,11 +7,9 @@ from .forms import UserRegisterForm, AccountSettings
 
 
 def register(request):
-    """It's a common view function, but I decided to add low-level authenticate just after registration
-    High-level authenticate based on built-in classes is in education/view.py"""
+    """It's a common view function, but I decided to add low-level authenticate just after registration"""
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
-        print(form.cleaned_data)
         if form.is_valid():
             form.save()
             username = form.cleaned_data['username']
