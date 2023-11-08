@@ -31,3 +31,12 @@ class ModalLoginForm(AuthenticationForm):
         widget=forms.PasswordInput(attrs={"autocomplete": "current-password",
                                           'placeholder': 'password'}),
     )
+
+
+class AccountSettings(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email', 'date_joined']
+        labels = {'first_name': 'Name',
+                  'last_name': 'Surname',
+                  'date_joined': 'Date of registration'}

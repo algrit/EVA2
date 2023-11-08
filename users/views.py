@@ -1,8 +1,9 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, AccountSettings
 
 
 def register(request):
@@ -31,5 +32,7 @@ def register_success(request):
     return render(request, 'users/success.html', context={'username': username})
 
 
-def acc_settings(request, user_pk):
-    return render(request, 'users/acc_settings.html', context={'user_pk': user_pk})
+def acc_settings(request, id_user):
+    user = User.objects.get(id=id_user)
+    form = AccountSettings(instance=user)
+    return render(request, 'users/acc_settings.html', context={'form': form, 'id_user': id_user})

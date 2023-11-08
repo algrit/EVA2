@@ -1,8 +1,6 @@
-asdasfsf
-asfdsFD
-AVSDVs
+{% for field in form %}
+{{ field.label }}:
+{{ field }}
 <br>
 <br>
-<br>
-<br>
-{{user_pk}}
+{% endfor %}
