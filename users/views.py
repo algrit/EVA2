@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import views, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
@@ -25,12 +25,12 @@ def register(request):
     return render(request, 'users/register.html', context={'form': form})
 
 
-def register_success(request):
+def success_message(request):
     username = request.user
     return render(request, 'users/success.html', context={'username': username})
 
 
-@login_required(login_url='/edu/my/')
+@login_required(login_url='/users/login/')
 def acc_settings(request):
     user = request.user
     if request.method == 'POST':
