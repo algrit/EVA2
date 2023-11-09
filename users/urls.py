@@ -7,5 +7,5 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('success/', register_success, name='register'),
     path('logout/', LogoutView.as_view(next_page='/edu/my/')),
-    path('<int:id_user>/', acc_settings, name='acc_settings'),
+    path('account/', acc_settings, name='acc_settings'),
 ]

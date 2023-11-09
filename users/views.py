@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
@@ -19,7 +19,7 @@ def register(request):
                 login(request, user)
                 return HttpResponseRedirect('/users/success/')
             else:
-                return HttpResponse('SOMETHING WRONG IN USER AUTH')
+                return HttpResponse('SOMETHING WRONG IN USER AUTH')  # didn't fight the way it may happen, but still.
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', context={'form': form})
@@ -30,8 +30,9 @@ def register_success(request):
     return render(request, 'users/success.html', context={'username': username})
 
 
-def acc_settings(request, id_user):
-    user = User.objects.get(id=id_user)
+@login_required(login_url='/edu/my/')
+def acc_settings(request):
+    user = request.user
     if request.method == 'POST':
         form = AccountSettings(data=request.POST, instance=user)
         if form.is_valid():
