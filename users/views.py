@@ -7,7 +7,8 @@ from .forms import UserRegisterForm, AccountSettings
 
 
 def register(request):
-    """It's a common view function, but I decided to add low-level authenticate just after registration"""
+    """It's a common view function, but I decided to add low-level authentication just after registration.
+    High-level class-based authentication (LoginView) is in urls.py"""
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
@@ -26,12 +27,15 @@ def register(request):
 
 
 def success_message(request):
+    """Page with message after successful action"""
     username = request.user
     return render(request, 'users/success.html', context={'username': username})
 
 
 @login_required(login_url='/users/login/')
 def acc_settings(request):
+    """View for editing or changing User data.
+    Later I'll change standard User model and will add some new fields (city, avatar, etc.)"""
     user = request.user
     if request.method == 'POST':
         form = AccountSettings(data=request.POST, instance=user)
