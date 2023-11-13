@@ -11,6 +11,7 @@ urlpatterns = [
     path('success/', success_message),
     path('account/', acc_settings, name='acc_settings'),
     path('password_change/',
-         PasswordChangeView.as_view(template_name='users/password_change.html', form_class=PwdChangeForm),
+         PasswordChangeView.as_view(template_name='users/password_change.html', form_class=PwdChangeForm,
+                                    success_url='/users/success/'),
          name='password_change'),  # name is using in acc_settings.html
 ]
