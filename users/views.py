@@ -20,7 +20,7 @@ def register(request):
                 login(request, user)
                 return HttpResponseRedirect('/users/success/')
             else:
-                return HttpResponse('SOMETHING WRONG IN USER AUTH')  # didn't fight the way it may happen, but still.
+                return HttpResponse('SOMETHING WRONG IN USER AUTH')  # didn't find the way it may happen, but still.
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', context={'form': form})

@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
@@ -34,8 +34,20 @@ class ModalLoginForm(AuthenticationForm):
 
 
 class AccountSettings(forms.ModelForm):
+    """Common ModelForm class for editing or changing User data"""
+
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email']
         labels = {'first_name': 'Name',
                   'last_name': 'Surname'}
+
+
+class PwdChangeForm(PasswordChangeForm):
+    """Just adds placeholders to common PasswordChangeForm. I love placeholders, they look stylish"""
+
+    def __init__(self, *args, **kwargs):
+        super(PasswordChangeForm, self).__init__(*args, **kwargs)
+        self.fields['old_password'].widget.attrs['placeholder'] = 'current password'
+        self.fields['new_password1'].widget.attrs['placeholder'] = 'new password'
+        self.fields['new_password2'].widget.attrs['placeholder'] = 'new password confirmation'
