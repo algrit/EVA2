@@ -1,36 +1,19 @@
-/* path -> users/static/css/login_register.css  */
+/* path -> education/static/css/login_modal.css  */
 
 @import url(https://fonts.googleapis.com/css?family=Lato:300);
 
-.errorlist {
-    font-family: "Lato", sans-serif;
-    color: #FF0000;
-    outline: 0;
-    width: 100%;
-    border: 0;
-    margin: -12 0 15px;
-    padding: 0px;
-    box-sizing: border-box;
-    font-size: 18px;
-}
-
-.register {
-  width: 500px;
-  padding: 5% 0 0;
-  margin: auto;
-}
-.form {
+.modal-content {
     position: relative;
-    z-index: 1;
+    z-index: auto;
     background: #FFFFFF;
-    max-width: 400px;
-    margin: 0 auto 100 px;
-    padding: 45px;
+    max-width: 360px;
+    margin: 100px auto auto;
+    padding: 10%;
     text-align: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   }
 
-.form input {
+.modal-content input {
     font-family: "Lato", sans-serif;
     outline: 0;
     background: #e7e4e4;
@@ -42,7 +25,7 @@
     font-size: 14px;
   }
 
-.form button {
+.modal-content button {
     font-family: "Lato", sans-serif;
     text-transform: uppercase;
     outline: 0;
@@ -57,11 +40,10 @@
     cursor: pointer;
   }
 
-.form button:hover,.form button:active,.form button:focus {
+.modal-content button:hover,.form button:active,.form button:focus {
     background: #3d3d3d;
   }
 
 body {
-    background: #3d3d3d;
     font-family: "Lato", sans-serif;
   }

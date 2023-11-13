@@ -3,9 +3,12 @@
 
 {% block title %} EVA {% endblock %}
 
+{% block scripts %}
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+
 {% block content %}
-<p>Hello, World!</p>
-<main style="height: 5000px">
+<main>
     <div class="carousel slide" id="carouselControls" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">

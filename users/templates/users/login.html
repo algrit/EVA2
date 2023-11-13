@@ -9,10 +9,14 @@
     </head>
 
     <body>
-        <div class="login">
+        <div class="register">
             <div class="form">
                 <h1>EVA</h1>
-                <form class="login-form" method="post">
+                {% if user.is_authenticated %}
+                <h4>You've already logged in as {{ user.username }}</h4>
+                <a href="/edu/my"><button type="button">Ok</button></a>
+                {% else %}
+                <form method="post">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
                     {% for field in form %}
@@ -20,6 +24,7 @@
                     {% endfor %}
                     <button type="submit">Login</button>
                 </form>
+                {% endif %}
             </div>
         </div>
     </body>
