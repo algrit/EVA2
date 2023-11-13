@@ -100,4 +100,5 @@ STATICFILES_DIRS = [BASE_DIR / 'EVA2/static',
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGIN_URL = '/users/login/'  # redirect to this page if non-authorized user tries to open forbidden page
 LOGIN_REDIRECT_URL = '/edu/my/'  # redirect after login
