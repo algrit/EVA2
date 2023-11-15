@@ -102,3 +102,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/users/login/'  # redirect to this page if non-authorized user tries to open forbidden page
 LOGIN_REDIRECT_URL = '/edu/my/'  # redirect after login
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # email for reset password

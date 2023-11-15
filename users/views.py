@@ -32,7 +32,7 @@ def success_message(request):
     return render(request, 'users/success.html', context={'username': username})
 
 
-@login_required(login_url='/users/login/')
+@login_required(login_url='/users/login/')  # I left login_url attribute even it's already in settings.py
 def acc_settings(request):
     """View for editing or changing User data.
     Later I'll change standard User model and will add some new fields (city, avatar, etc.)"""
@@ -45,3 +45,5 @@ def acc_settings(request):
     else:
         form = AccountSettings(instance=user)
     return render(request, 'users/acc_settings.html', context={'form': form, 'user': user})
+
+
