@@ -45,6 +45,3 @@ def acc_settings(request):
     else:
         form = AccountSettings(instance=user)
     return render(request, 'users/acc_settings.html', context={'form': form, 'user': user})
-
-class Modify:
-    pass
