@@ -24,6 +24,9 @@
                     {% endfor %}
                     <button type="submit">Login</button>
                 </form>
+                <div class="message">
+                    Don't have an account yet? <a href="{% url 'register' %}">Sign Up</a>
+                </div>
                 {% endif %}
             </div>
         </div>

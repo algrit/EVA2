@@ -44,6 +44,10 @@
     background: #3d3d3d;
   }
 
+.message {
+    padding-top: 15px
+}
+
 body {
     font-family: "Lato", sans-serif;
   }
