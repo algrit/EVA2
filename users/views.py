@@ -25,12 +25,13 @@ def register(request):
         form = UserRegisterForm()
     return render(request, 'users/register.html', context={'form': form})
 
-
+@login_required(login_url='/users/login/')
 def success_message(request):
     """Page with message after successful action"""
     username = request.user
     return render(request, 'users/success.html', context={'username': username})
 
+@login_required(login_url='/users/login/')
 def success_password_changed(request):
     """Page with message after successful changing password"""
     username = request.user
