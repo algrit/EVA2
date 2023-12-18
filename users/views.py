@@ -44,11 +44,12 @@ def acc_settings(request):
     """View for editing or changing User data.
     Later I'll change standard User model and will add some new fields (city, avatar, etc.)"""
     user = request.user
+    success_mark = 0
     if request.method == 'POST':
         form = AccountSettings(data=request.POST, instance=user)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/users/success/')
+            success_mark = 1
     else:
         form = AccountSettings(instance=user)
-    return render(request, 'users/acc_settings.html', context={'form': form, 'user': user})
+    return render(request, 'users/acc_settings.html', context={'form': form, 'user': user, 'success_mark': success_mark})

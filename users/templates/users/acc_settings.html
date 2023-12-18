@@ -12,6 +12,9 @@
     <div class="form">
         <h5>Username: {{ user.username }}</h5>
         <h5>Date of registration: {{ user.date_joined }}</h5>
+        {% if success_mark == 1 %}
+            <div class="change_success">Information was changed successfully!</div>
+        {% endif %}
         <form method="post">
             {% csrf_token %}
             {% for field in form %}
@@ -20,6 +23,7 @@
             {% endfor %}
             <button type="submit">Save changes</button>
         </form>
+
         <div class="pwd_change">
             <h5><a href="{% url 'password_change' %}"> Change Password </a></h5>
         </div>
