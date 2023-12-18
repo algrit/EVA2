@@ -31,6 +31,12 @@ def success_message(request):
     username = request.user
     return render(request, 'users/success.html', context={'username': username})
 
+def success_password_changed(request):
+    """Page with message after successful changing password"""
+    username = request.user
+    return render(request, 'users/success_password_change.html', context={'username': username})
+
+
 
 @login_required(login_url='/users/login/')
 def acc_settings(request):
