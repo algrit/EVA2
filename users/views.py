@@ -26,7 +26,7 @@ def register(request):
     return render(request, 'users/register.html', context={'form': form})
 
 @login_required(login_url='/users/login/')
-def success_message(request):
+def success_signin(request):
     """Page with message after successful action"""
     username = request.user
     return render(request, 'users/success.html', context={'username': username})

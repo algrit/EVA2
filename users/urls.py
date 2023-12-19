@@ -4,14 +4,14 @@ from django.contrib.auth.views import (LoginView, LogoutView, PasswordChangeView
 from django.urls import path
 
 from .forms import ModalLoginForm, PwdChangeForm
-from .views import register, acc_settings, success_message, success_password_changed
+from .views import register, acc_settings, success_signin, success_password_changed
 
 urlpatterns = [
     path('register/', register, name='register'),
     path('login/', LoginView.as_view(template_name='users/login.html', authentication_form=ModalLoginForm)),
     path('logout/', LogoutView.as_view(next_page='/edu/my/')),
     path('success/password_changed/', success_password_changed),
-    path('success/', success_message),
+    path('success/', success_signin),
     path('account/', acc_settings, name='acc_settings'),
     path('password/reset/<str:uidb64>/<str:token>/',
          PasswordResetConfirmView.as_view(template_name="users/password_reset_confirm.html"),
