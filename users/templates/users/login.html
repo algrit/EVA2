@@ -1,37 +1,33 @@
+{% extends 'base_user_actions.html' %}
 {% load static %}
 
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>EVA Registration</title>
-        <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/login_register.css' %}">
-    </head>
+{% block title %} EVA Login {% endblock %}
 
-    <body>
-        <div class="register">
-            <div class="form">
-                <h1>EVA</h1>
-                {% if user.is_authenticated %}
-                <h4>You've already logged in as {{ user.username }}</h4>
-                <a href="/edu/my"><button type="button">Ok</button></a>
-                {% else %}
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.non_field_errors }}
-                    {% for field in form %}
-                    {{ field }}
-                    {% endfor %}
-                    <button type="submit">Login</button>
-                </form>
-                <div class="message">
-                    Don't have an account yet? <a href="{% url 'register' %}">Sign Up</a>
-                </div>
-                <div class="message">
-                     <a href="{% url 'password_reset' %}">Forgot your password?</a>
-                </div>
-                {% endif %}
-            </div>
+{% block content %}
+<div class="general">
+    <div class="form">
+        <h1>EVA</h1>
+        {% if user.is_authenticated %}
+        <h4>You've already logged in as {{ user.username }}</h4>
+        <a href="/edu/my">
+            <button type="button">Ok</button>
+        </a>
+        {% else %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {% for field in form %}
+            {{ field }}
+            {% endfor %}
+            <button type="submit">Login</button>
+        </form>
+        <div class="message">
+            Don't have an account yet? <a href="{% url 'register' %}">Sign Up</a>
         </div>
-    </body>
-</html>
+        <div class="message">
+            <a href="{% url 'password_reset' %}">Forgot your password?</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,25 +1,21 @@
+{% extends 'base_user_actions.html' %}
 {% load static %}
 
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>EVA Registration</title>
-        <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/login_register.css' %}">
-    </head>
-    <body>
-        <div class="register">
-            <div class="form">
-                <h1>EVA</h1>
-                <form method="post">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        {{ field }}
-                        {{ field.errors }}
-                    {% endfor %}
-                    <button type="submit">Create user</button>
-                </form>
-            </div>
-        </div>
-    </body>
-</html>
+{% block title %} EVA Registration {% endblock %}
+
+{% block content %}
+<div class="general">
+    <div class="form">
+        <h1>EVA</h1>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+            {{ field }}
+            {{ field.errors }}
+            {% endfor %}
+            <br>
+            <button type="submit">Create user</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
