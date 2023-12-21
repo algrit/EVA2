@@ -1,5 +1,6 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField, PasswordChangeForm, \
+    PasswordResetForm
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
@@ -51,3 +52,11 @@ class PwdChangeForm(PasswordChangeForm):
         self.fields['old_password'].widget.attrs['placeholder'] = 'current password'
         self.fields['new_password1'].widget.attrs['placeholder'] = 'new password'
         self.fields['new_password2'].widget.attrs['placeholder'] = 'new password confirmation'
+
+
+class PwdResetForm(PasswordResetForm):
+    """Just adds placeholders to common PasswordResetForm"""
+
+    def __init__(self, *args, **kwargs):
+        super(PasswordResetForm, self).__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs['placeholder'] = 'Input your Email'

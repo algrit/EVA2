@@ -3,7 +3,7 @@ from django.contrib.auth.views import (LoginView, LogoutView, PasswordChangeView
                                        PasswordResetCompleteView)
 from django.urls import path
 
-from .forms import ModalLoginForm, PwdChangeForm
+from .forms import ModalLoginForm, PwdChangeForm, PwdResetForm
 from .views import register, acc_settings, success_signin, success_password_changed
 
 urlpatterns = [
@@ -18,9 +18,10 @@ urlpatterns = [
          name='password_change'),  # name is using in acc_settings.html
     path('success/password_changed/', success_password_changed),
 
-    path('password_reset/done/', PasswordResetDoneView.as_view(template_name="users/password_reset_done.html"),
+    path('password_reset/done/', PasswordResetDoneView.as_view(template_name='users/password_reset_done.html'),
          name='password_reset_done'),  # name is using in PasswordResetView
     path('password_reset/', PasswordResetView.as_view(template_name='users/password_reset.html',
+                                                      form_class=PwdResetForm,
                                                       subject_template_name='users/password_reset_subject.txt',
                                                       email_template_name='users/password_reset_email.html',
                                                       from_email='EVAadmin'), name='password_reset'),  # name is using in login.html
