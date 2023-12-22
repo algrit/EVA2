@@ -5,14 +5,14 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/user_actions.css' %}">
 {% endblock %}
 
-{% block title %} EVA Password Changed {% endblock %}
+{% block title %} EVA Registration Success {% endblock %}
 
 {% block content %}
 <div class="general">
     <div class="form">
         <h5>Done!</h5>
-        <h5>{{ username }}, your password was changed</h5>
-        <a href="/users/logout/">
+        <h5>You have logged in as {{ username }}</h5>
+        <a href="/edu/my">
             <button type="button" id="ok_btn">Ok</button>
         </a>
     </div>

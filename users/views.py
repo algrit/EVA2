@@ -1,4 +1,4 @@
-from django.contrib.auth import views, authenticate, login
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
@@ -18,25 +18,26 @@ def register(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect('/users/success/')
+                return HttpResponseRedirect('/users/register/success/')
             else:
                 return HttpResponse('SOMETHING WRONG IN USER AUTH')  # didn't find the way it may happen, but still.
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', context={'form': form})
 
+
 @login_required(login_url='/users/login/')
-def success_signin(request):
-    """Page with message after successful action"""
+def success_register(request):
+    """Page with message after successful registration"""
     username = request.user
-    return render(request, 'users/success.html', context={'username': username})
+    return render(request, 'users/success_register.html', context={'username': username})
+
 
 @login_required(login_url='/users/login/')
 def success_password_changed(request):
     """Page with message after successful changing password"""
     username = request.user
     return render(request, 'users/success_password_change.html', context={'username': username})
-
 
 
 @login_required(login_url='/users/login/')
@@ -52,4 +53,5 @@ def acc_settings(request):
             success_mark = 1
     else:
         form = AccountSettings(instance=user)
-    return render(request, 'users/acc_settings.html', context={'form': form, 'user': user, 'success_mark': success_mark})
+    return render(request, 'users/acc_settings.html',
+                  context={'form': form, 'user': user, 'success_mark': success_mark})
