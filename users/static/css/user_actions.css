@@ -14,7 +14,7 @@
     background: #FFFFFF;
     max-width: 400px;
     margin: 0 auto 100 px;
-    padding: 45px;
+    padding: 35px;
     text-align: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
@@ -48,6 +48,7 @@
 
 #ok_btn {
     width: 30%;
+    margin-top: 10px;
 }
 
 .form button:hover,.form button:active,.form button:focus {

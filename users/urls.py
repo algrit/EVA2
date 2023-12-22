@@ -4,19 +4,19 @@ from django.contrib.auth.views import (LoginView, LogoutView, PasswordChangeView
 from django.urls import path
 
 from .forms import ModalLoginForm, PwdChangeForm, PwdResetForm
-from .views import register, acc_settings, success_signin, success_password_changed
+from .views import register, acc_settings, success_register, success_password_changed
 
 urlpatterns = [
+    path('register/success/', success_register),
     path('register/', register, name='register'),
-    path('success/', success_signin),
     path('login/', LoginView.as_view(template_name='users/login.html', authentication_form=ModalLoginForm)),
     path('logout/', LogoutView.as_view(next_page='/edu/my/')),
     path('account/', acc_settings, name='acc_settings'),
     path('password_change/',
          PasswordChangeView.as_view(template_name='users/password_change.html', form_class=PwdChangeForm,
-                                    success_url='/users/success/password_changed/'),
+                                    success_url='/users/password_change/success/'),
          name='password_change'),  # name is using in acc_settings.html
-    path('success/password_changed/', success_password_changed),
+    path('password_change/success/', success_password_changed),
 
     path('password_reset/done/',
          PasswordResetDoneView.as_view(template_name='users/password_reset_done.html', extra_context={
