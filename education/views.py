@@ -27,7 +27,7 @@ def index(request):
 
 class CoursesListView(ListView):
     model = Course
-    template_name = 'education/courses_list.html'
+    template_name = 'education/subscribed_courses.html'
 
 
 class CourseDetailView(DetailView):
