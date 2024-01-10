@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Question, Test, Course
+from .models import Question, Test, Course, CourseSubscription
 
 
 class QTCReprModelAdmin(admin.ModelAdmin):
@@ -24,3 +24,9 @@ class TestAdmin(QTCReprModelAdmin):
 @admin.register(Course)
 class CourseAdmin(QTCReprModelAdmin):
     filter_horizontal = ['tests']
+
+@admin.register(CourseSubscription)
+class CourseSubscriptionAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user', 'course', 'sub_time', 'unsub_time', 'active']
+    ordering = ['id']
+    list_per_page = 10
