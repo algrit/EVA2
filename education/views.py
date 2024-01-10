@@ -1,10 +1,6 @@
 from django.contrib.auth import login, authenticate
-from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
-
 from users.forms import ModalLoginForm
-from .models import Course, Test
 
 
 def index(request):
@@ -23,23 +19,3 @@ def index(request):
     else:
         login_form = ModalLoginForm()
     return render(request, 'education/index.html', context={'form': login_form, 'user': request.user})
-
-
-class CoursesListView(ListView):
-    model = Course
-    template_name = 'education/subscribed_courses.html'
-
-
-class CourseDetailView(DetailView):
-    model = Course
-    template_name = 'education/course_detail.html'
-
-
-class TestsListView(ListView):
-    model = Test
-    template_name = 'education/tests_list.html'
-
-
-class TestDetailView(DetailView):
-    model = Test
-    template_name = 'education/test_detail.html'
