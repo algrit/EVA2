@@ -6,7 +6,7 @@
 <h2>All courses:</h2>
 {% for course, status in courses_status.items %}
     {% if status == 'unsubed' %}
-    <p> {{course.title}} - {{status}}</p>
+    <img src='/media/{{course.icon}}' width="133" height="100"> <p> {{course.title}} - {{status}}</p>
     {% else %}
     <p> fuck you</p>
     {% endif %}
