@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block scripts %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/education_base.css' %}">
+{% endblock %}
 
 {% block title %} {% endblock %}
 
 {% block content %}
 <h2>All courses:</h2>
+
 {% for course, status in courses_status.items %}
     {% if status == 'unsubed' %}
-    <img src='/media/{{course.icon}}' width="133" height="100"> <p> {{course.title}} - {{status}}</p>
+    <div class="course">
+        <img src='/media/{{course.icon}}' width="133" height="100"> {{course.title}} - {{status}}
+    </div>
+
     {% else %}
     <p> fuck you</p>
     {% endif %}
