@@ -1,0 +1,25 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:300);
+
+section {
+    padding: 20px 0;
+    }
+
+
+body {
+    background: linear-gradient(to bottom,  #f3f8f9 0%,#f5f7f9 100%);
+}
+
+.algri-img {
+    padding: 10px 10px;
+    width: 150px;
+    height: 100px;
+}
+
+.algri-course-text {
+    padding: 10px 10px;
+    height: 100px;
+}
+
+.algri-course-desc {
+    background-color: #DDDDDD;
+}

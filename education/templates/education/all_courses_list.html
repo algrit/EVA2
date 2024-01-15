@@ -1,16 +1,40 @@
 {% extends 'base.html' %}
-<br>
-<br>
-<br>
-<br>
-<br>
+{% load static %}
+
+{% block scripts %}
+<link href="{% static 'css/education_base.css'%}" rel="stylesheet">
+{% endblock %}
+
+
 {% block content %}
+<section class="p-4">
 <div class="container">
-    <div class="row">
-        <div class="col">1</div>
-        <div class="col">2</div>
-        <div class="col">3</div>
-        
+    <div class="pb-3">
+        <h2 class="m-2">All available courses:</h2>
+    </div>
+
+    <div class="row gy-4">
+        {% for course, status in courses_status.items %}
+        <div class="col-lg-6 col-sm-12">
+            <div class="algri-course p-3 border border-dark rounded">
+                <div class="row">
+                    <div class="col-2">
+                        <img class="bg-white border border-dark rounded" id="course-icon" src="/media/{{ course.icon }}">
+                        {% if status == 'unsubed' %}
+                            <div class="algri-sub bg-info">
+                                Subscribe on the course
+                            </div>
+
+                        {% endif %}
+                    </div>
+                    <div class="col-10">
+                        <h4 class="p3">{{ course.title }}</h4>
+                        {{ course.description }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

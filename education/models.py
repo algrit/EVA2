@@ -29,8 +29,11 @@ class Test(BaseContent):
 
 class Course(BaseContent):
     tests = models.ManyToManyField(Test, verbose_name='Tests in Course')
-    description = models.CharField(max_length=800, verbose_name='Description', blank=True)
+    description = models.CharField(max_length=340, verbose_name='Description', blank=True)
     icon = models.ImageField(upload_to='course_icon/', verbose_name='Course Icon', blank=True)
+
+    class Meta:
+        ordering = ['id']
 
 
 class CourseSubscription(models.Model):
