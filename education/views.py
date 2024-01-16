@@ -3,7 +3,9 @@ import time
 
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
 from education.models import Course, CourseSubscription
@@ -28,10 +30,6 @@ def index(request):
     return render(request, 'education/index.html', context={'form': login_form, 'user': request.user})
 
 
-# class CoursesListView(ListView):
-#     model = Course
-#     template_name = 'education/all_courses_list.html'
-
 @login_required(login_url='/users/login/')
 def all_courses(request):
     user = request.user
@@ -49,6 +47,11 @@ def all_courses(request):
 def course_sub(request, course_id: int):
     user = request.user
     course = Course.objects.get(id=course_id)
+    if CourseSubscription.objects.filter(
+            Q(user=user) &
+            Q(course=course) &
+            Q(active=True)).exists():
+        return HttpResponse('Subscription is not allowed! This user is already subscribed to this course.')
     sub = CourseSubscription(user=user, course=course)
     sub.save()
     return HttpResponseRedirect('/edu/courses/')
@@ -58,7 +61,10 @@ def course_sub(request, course_id: int):
 def course_unsub(request, course_id: int):
     user = request.user
     course = Course.objects.get(id=course_id)
-    unsub = CourseSubscription.objects.get(user=user, course=course, active=1)
+    try:
+        unsub = CourseSubscription.objects.get(user=user, course=course, active=1)
+    except ObjectDoesNotExist:
+        return HttpResponse('Unsub is not allowed! This user is not subscribed to this course.')
     unsub.active = 0
     unsub.unsub_time = datetime.datetime.now()
     unsub.save()
