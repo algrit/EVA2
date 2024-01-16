@@ -1,19 +1,31 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300);
 
-.algri-course {
-    background-color: #DDDDDD
-}
-
-.algri-sub {
-
-}
-
-
 body {
     background: linear-gradient(to bottom,  #f3f8f9 0%,#f5f7f9 100%);
+}
+
+#algri-course {
+    background-color: #DDDDDD
 }
 
 #course-icon {
     max-width:100%;
     height:auto;
+}
+
+#algri-subscribe-btn{
+    background: white;
+}
+
+#algri-subscribe-btn:hover,.algri-subscribe-btn:active,.algri-subscribe-btn:focus {
+    background: #c6e1fc;
+}
+
+#algri-unsub-btn{
+    width:100%;
+    padding: 0px
+}
+
+#algri-subed-status {
+    background: #77f568;
 }
