@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block scripts %}
+<link href="{% static 'css/education_base.css'%}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<h2>Subscribe user on course:</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+    {{field.name}}
+    {{field.errors}}
+    {{field}}
+    <br>
+    <br>
+    {% endfor %}
+    <button type="submit">Subscribe User</button>
+</form>
+
+{% endblock %}

@@ -22,10 +22,12 @@
                     <div class="col-2">
                         <img class="bg-white border border-dark rounded" id="course-icon" src="/media/{{ course.icon }}">
                         {% if status == 'unsubed' %}
+                        <a href="{% url 'course_sub' course_id=course.id %}">
                             <button class="mt-2 p-1 border border-info rounded" id="algri-subscribe-btn">
                                 <i class="icon-laptop d-flex justify-content-center"></i>
                                 <text class="ps-1">Subscribe</text>
                             </button>
+                        </a>
                         {% else %}
                             <div class="mt-2 p-1 border border-success rounded" id="algri-subed-status">
                                 <i class="icon-ok"></i>Subed

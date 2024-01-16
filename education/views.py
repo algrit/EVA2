@@ -1,10 +1,12 @@
 from django.contrib.auth import login, authenticate
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
+from education.forms import CourseSubscribeForm
 from education.models import Course, CourseSubscription
 from users.forms import ModalLoginForm
-from django.views.generic import ListView
+from django.views.generic import CreateView
 
 
 def index(request):
@@ -30,7 +32,7 @@ def index(request):
 #     template_name = 'education/all_courses_list.html'
 
 @login_required(login_url='/users/login/')
-def subscribe(request):
+def all_courses(request):
     user = request.user
     courses = Course.objects.all()
     courses_status = {}
@@ -40,3 +42,18 @@ def subscribe(request):
         except CourseSubscription.DoesNotExist:
             courses_status[course] = 'unsubed'
     return render(request, 'education/all_courses_list.html', context={'courses_status': courses_status})
+
+@login_required(login_url='/users/login/')
+def course_sub(request, course_id: int):
+    user = request.user
+    course = Course.objects.get(id=course_id)
+    sub = CourseSubscription(user=user, course=course)
+    sub.save()
+    return HttpResponseRedirect('/edu/courses/')
+
+
+# class CourseSub(CreateView):
+#     model = CourseSubscription
+#     form_class = CourseSubscribeForm
+#     template_name = 'education/course_sub_form.html'
+#     success_url = '/courses/'
