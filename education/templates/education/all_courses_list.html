@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block scripts %}
+<link href="{% static 'css/education_base.css'%}" rel="stylesheet">
+<link href="{% static 'fontello/css/fontello.css'%}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+<section class="p-4">
+<div class="container">
+    <div class="pb-3">
+        <h2 class="m-2">All available courses:</h2>
+    </div>
+
+    <div class="row gy-4">
+        {% for course, status in courses_status.items %}
+        <div class="col-lg-6 col-sm-12">
+            <div class="p-3 border border-dark rounded" id="algri-course">
+                <div class="row">
+                    <div class="col-2">
+                        <img class="bg-white border border-dark rounded" id="course-icon" src="/media/{{ course.icon }}">
+                        {% if status == 'unsubed' %}
+                        <a href="{% url 'course_sub' course_id=course.id %}">
+                            <button class="mt-2 p-1 border border-info rounded" id="algri-subscribe-btn">
+                                <i class="icon-laptop d-flex justify-content-center"></i>
+                                <text class="ps-1">Subscribe</text>
+                            </button>
+                        </a>
+                        {% else %}
+                            <div class="mt-2 p-1 border border-success rounded" id="algri-subed-status">
+                                <i class="icon-ok"></i>Subed
+                            </div>
+                        <a href="{% url 'course_unsub' course_id=course.id %}">
+                            <button class="btn btn-danger mt-2 border border-dark" data-bs-toggle="tooltip"
+                                    title="Unsubscribe from the course" id="algri-unsub-btn">
+                                <i class="icon-trash-empty"></i>
+                            </button>
+                        </a>
+                        {% endif %}
+                    </div>
+                    <div class="col-10">
+                        <h4 class="p3">{{ course.title }}</h4>
+                        {{ course.description }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
