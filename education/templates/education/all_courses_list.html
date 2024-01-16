@@ -32,10 +32,12 @@
                             <div class="mt-2 p-1 border border-success rounded" id="algri-subed-status">
                                 <i class="icon-ok"></i>Subed
                             </div>
+                        <a href="{% url 'course_unsub' course_id=course.id %}">
                             <button class="btn btn-danger mt-2 border border-dark" data-bs-toggle="tooltip"
                                     title="Unsubscribe from the course" id="algri-unsub-btn">
                                 <i class="icon-trash-empty"></i>
                             </button>
+                        </a>
                         {% endif %}
                     </div>
                     <div class="col-10">

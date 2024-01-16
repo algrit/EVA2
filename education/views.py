@@ -1,12 +1,13 @@
+import datetime
+import time
+
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
 
-from education.forms import CourseSubscribeForm
 from education.models import Course, CourseSubscription
 from users.forms import ModalLoginForm
-from django.views.generic import CreateView
 
 
 def index(request):
@@ -43,6 +44,7 @@ def all_courses(request):
             courses_status[course] = 'unsubed'
     return render(request, 'education/all_courses_list.html', context={'courses_status': courses_status})
 
+
 @login_required(login_url='/users/login/')
 def course_sub(request, course_id: int):
     user = request.user
@@ -52,8 +54,12 @@ def course_sub(request, course_id: int):
     return HttpResponseRedirect('/edu/courses/')
 
 
-# class CourseSub(CreateView):
-#     model = CourseSubscription
-#     form_class = CourseSubscribeForm
-#     template_name = 'education/course_sub_form.html'
-#     success_url = '/courses/'
+@login_required(login_url='/users/login/')
+def course_unsub(request, course_id: int):
+    user = request.user
+    course = Course.objects.get(id=course_id)
+    unsub = CourseSubscription.objects.get(user=user, course=course, active=1)
+    unsub.active = 0
+    unsub.unsub_time = datetime.datetime.now()
+    unsub.save()
+    return HttpResponseRedirect('/edu/courses/')
