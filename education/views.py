@@ -72,5 +72,9 @@ def course_unsub(request, course_id: int):
 
 @login_required(login_url='/users/login/')
 def my_courses(request):
-    my_courses = Course.objects.all()
+    user = request.user
+    subs = CourseSubscription.objects.filter(user=user, active=1)
+    my_courses = []
+    for sub in subs:
+        my_courses.append(sub.course)
     return render(request, 'education/my_courses.html', context={'my_courses': my_courses})
