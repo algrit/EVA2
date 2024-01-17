@@ -69,3 +69,8 @@ def course_unsub(request, course_id: int):
     unsub.unsub_time = datetime.datetime.now()
     unsub.save()
     return HttpResponseRedirect('/edu/courses/')
+
+@login_required(login_url='/users/login/')
+def my_courses(request):
+    my_courses = Course.objects.all()
+    return render(request, 'education/my_courses.html', context={'my_courses': my_courses})
