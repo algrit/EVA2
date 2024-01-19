@@ -1,5 +1,4 @@
 import datetime
-import time
 
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -7,6 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView, CreateView
 
 from education.models import Course, CourseSubscription
 from users.forms import ModalLoginForm
@@ -70,11 +70,19 @@ def course_unsub(request, course_id: int):
     unsub.save()
     return HttpResponseRedirect('/edu/courses/')
 
-@login_required(login_url='/users/login/')
-def my_courses(request):
-    user = request.user
-    subs = CourseSubscription.objects.filter(user=user, active=1)
-    my_courses = []
-    for sub in subs:
-        my_courses.append(sub.course)
-    return render(request, 'education/my_courses.html', context={'my_courses': my_courses})
+# @login_required(login_url='/users/login/')  # old version based on func
+# def my_courses(request):
+#     user = request.user
+#     subs = CourseSubscription.objects.filter(user=user, active=1)
+#     my_courses = []
+#     for sub in subs:
+#         my_courses.append(sub.course)
+#     return render(request, 'education/my_courses.html', context={'my_courses': my_courses})
+
+class MyCoursesView(ListView):
+    context_object_name = 'my_courses'
+    template_name = 'education/my_courses.html'
+
+    def get_queryset(self):
+        user = self.request.user
+        return [sub.course for sub in CourseSubscription.objects.filter(user=user, active=1).order_by("-sub_time")]
