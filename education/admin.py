@@ -27,7 +27,7 @@ class CourseAdmin(QTCReprModelAdmin):
 
 @admin.register(Content)
 class ContentAdmin(QTCReprModelAdmin):
-    pass
+    list_display = ['title', 'course', 'create_time']
 
 @admin.register(CourseSubscription)
 class CourseSubscriptionAdmin(admin.ModelAdmin):

@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView
 
-from education.models import Course, CourseSubscription
+from education.models import Course, CourseSubscription, Test, Content
 from users.forms import ModalLoginForm
 
 
@@ -85,7 +85,17 @@ class MyCoursesView(ListView):
 
     def get_queryset(self):
         user = self.request.user
-        return [sub.course for sub in CourseSubscription.objects.filter(user=user, active=1).order_by("-sub_time")]
+        # return [sub.course for sub in CourseSubscription.objects.filter(user=user, active=1).order_by("-sub_time")]
+        sub_filter = Q(coursesubscription__user=user) & Q(coursesubscription__active=1)
+        return Course.objects.filter(sub_filter).order_by("-coursesubscription__sub_time")
 
 class CourseView(DetailView):
     model = Course
+    context_object_name = 'course'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        # context['tests'] = Test
+        context['content'] = Content.objects.filter(course=context['course'])
+        return context

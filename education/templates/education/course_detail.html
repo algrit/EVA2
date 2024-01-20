@@ -9,18 +9,25 @@
 
 {% block content %}
 
-{{ object.title }}
+{{ user }}
+<br>
+<br>
+{{ course.title }}
+<br>
+<br>
+{{ course.description }}
+<br>
+<br>
+FILES:
+<br>
+{% for file in content %}
+<a href="/media/{{ file.file }}">{{ file.title }}</a>
+<br>
+{% endfor %}
+
+TESTS:
 <br>
 
-<br>
-{{ object.tests }}
-<br>
-<br>
-
-{{ object.description }}
-<br>
-<br>
-{{ object.icon }}
 
 
 {% endblock %}
