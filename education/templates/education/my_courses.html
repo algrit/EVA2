@@ -9,27 +9,29 @@
 
 {% block content %}
 <section class="p-4">
-<div class="container">
-    <div class="pb-3">
-        <h1 class="m-2">My courses:</h1>
-    </div>
+    <div class="container">
+        <div class="pb-3">
+            <h1 class="m-2">My courses:</h1>
+        </div>
 
-    <div class="row gy-4">
-        {% for course in my_courses %}
-        <div class="col-12">
-            <div class="p-3 border border-dark rounded" id="algri-course">
-                <div class="row">
-                    <div class="col-2">
-                        <img class="bg-white border border-dark rounded" id="course-icon" src="/media/{{ course.icon }}">
-                    </div>
-                    <div class="col-10">
-                        <h4 class="p3">{{ course.title }}</h4>
-                        {{ course.description }}
+        <div class="row gy-4">
+            {% for course in my_courses %}
+            <div class="col-12">
+                <div class="p-3 border border-dark rounded" id="algri-course">
+                    <div class="row">
+                        <div class="col-2">
+                            <img class="bg-white border border-dark rounded" id="course-icon"
+                                 src="/media/{{ course.icon }}">
+                        </div>
+                        <div class="col-10">
+                            <h4 class="p3">{{ course.title }}</h4>
+                            {{ course.description }}
+                        </div>
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
-</div>
+</section>
 {% endblock %}

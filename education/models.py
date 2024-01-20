@@ -3,7 +3,7 @@ from django.db import models
 
 
 class BaseContent(models.Model):
-    """Abstract Class for Questions, Tests and Courses models. Adds Title, DateTime fields and __str__ method"""
+    """Abstract Class for Questions, Tests, Content and Courses models. Adds Title, DateTime fields and __str__ method"""
     title = models.CharField(max_length=40, unique=True, db_index=True)
     create_time = models.DateTimeField(auto_now_add=True, verbose_name='Time of creation')
     update_time = models.DateTimeField(auto_now=True, verbose_name='Time of last update')
@@ -27,6 +27,7 @@ class Test(BaseContent):
     questions = models.ManyToManyField(Question, verbose_name='Questions in Test')
 
 
+
 class Course(BaseContent):
     tests = models.ManyToManyField(Test, verbose_name='Tests in Course')
     description = models.CharField(max_length=340, verbose_name='Description', blank=True)
@@ -35,6 +36,13 @@ class Course(BaseContent):
     class Meta:
         ordering = ['id']
 
+def course_directory_path(instance, filename):
+    """Function is used to generate the path based on course_name for saving files in different directories"""
+    return 'content/{0}/{1}'.format(instance.course.title, filename)
+
+class Content(BaseContent):
+    course = models.ForeignKey('Course', on_delete=models.PROTECT, verbose_name='Content in Course')
+    file = models.FileField(upload_to=course_directory_path, verbose_name='Content File')
 
 class CourseSubscription(models.Model):
     """Through-Model to connect User and Course. Realize Many-to-Many connection."""

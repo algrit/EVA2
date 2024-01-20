@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Question, Test, Course, CourseSubscription
+from .models import Question, Test, Course, CourseSubscription, Content
 
 
 class QTCReprModelAdmin(admin.ModelAdmin):
@@ -24,6 +24,10 @@ class TestAdmin(QTCReprModelAdmin):
 @admin.register(Course)
 class CourseAdmin(QTCReprModelAdmin):
     filter_horizontal = ['tests']
+
+@admin.register(Content)
+class ContentAdmin(QTCReprModelAdmin):
+    pass
 
 @admin.register(CourseSubscription)
 class CourseSubscriptionAdmin(admin.ModelAdmin):

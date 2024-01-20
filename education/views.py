@@ -86,3 +86,6 @@ class MyCoursesView(ListView):
     def get_queryset(self):
         user = self.request.user
         return [sub.course for sub in CourseSubscription.objects.filter(user=user, active=1).order_by("-sub_time")]
+
+class CourseView(DetailView):
+    model = Course

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block scripts %}
+<link href="{% static 'css/education_base.css'%}" rel="stylesheet">
+<link href="{% static 'fontello/css/fontello.css'%}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+
+{{ object.title }}
+<br>
+
+<br>
+{{ object.tests }}
+<br>
+<br>
+
+{{ object.description }}
+<br>
+<br>
+{{ object.icon }}
+
+
+{% endblock %}
