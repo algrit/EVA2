@@ -2,13 +2,14 @@ import datetime
 
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView
 
-from education.models import Course, CourseSubscription, Test, Content
+from education.models import Course, CourseSubscription, Content
 from users.forms import ModalLoginForm
 
 
@@ -30,7 +31,7 @@ def index(request):
     return render(request, 'education/index.html', context={'form': login_form, 'user': request.user})
 
 
-@login_required(login_url='/users/login/')
+@login_required
 def all_courses(request):
     user = request.user
     courses = Course.objects.all()
@@ -43,7 +44,7 @@ def all_courses(request):
     return render(request, 'education/all_courses_list.html', context={'courses_status': courses_status})
 
 
-@login_required(login_url='/users/login/')
+@login_required
 def course_sub(request, course_id: int):
     user = request.user
     course = Course.objects.get(id=course_id)
@@ -57,7 +58,7 @@ def course_sub(request, course_id: int):
     return HttpResponseRedirect('/edu/courses/')
 
 
-@login_required(login_url='/users/login/')
+@login_required
 def course_unsub(request, course_id: int):
     user = request.user
     course = Course.objects.get(id=course_id)
@@ -70,6 +71,7 @@ def course_unsub(request, course_id: int):
     unsub.save()
     return HttpResponseRedirect('/edu/courses/')
 
+
 # @login_required(login_url='/users/login/')  # old version based on func
 # def my_courses(request):
 #     user = request.user
@@ -79,7 +81,8 @@ def course_unsub(request, course_id: int):
 #         my_courses.append(sub.course)
 #     return render(request, 'education/my_courses.html', context={'my_courses': my_courses})
 
-class MyCoursesView(ListView):
+
+class MyCoursesView(LoginRequiredMixin, ListView):
     context_object_name = 'my_courses'
     template_name = 'education/my_courses.html'
 
@@ -89,7 +92,8 @@ class MyCoursesView(ListView):
         sub_filter = Q(coursesubscription__user=user) & Q(coursesubscription__active=1)
         return Course.objects.filter(sub_filter).order_by("-coursesubscription__sub_time")
 
-class CourseView(DetailView):
+
+class CourseView(LoginRequiredMixin, DetailView):
     model = Course
     context_object_name = 'course'
 
