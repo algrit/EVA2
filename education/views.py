@@ -38,7 +38,8 @@ def all_courses(request):
     courses_status = {}
     for course in courses:
         try:
-            courses_status[course] = CourseSubscription.objects.get(user=user, course=course, active=1)
+            courses_status[course] = (CourseSubscription.objects.select_related('user', 'course')
+                                      .get(user=user, course=course, active=1))
         except CourseSubscription.DoesNotExist:
             courses_status[course] = 'unsubed'
     return render(request, 'education/all_courses_list.html', context={'courses_status': courses_status})
@@ -48,7 +49,7 @@ def all_courses(request):
 def course_sub(request, course_id: int):
     user = request.user
     course = Course.objects.get(id=course_id)
-    if CourseSubscription.objects.filter(
+    if CourseSubscription.objects.select_related('user', 'course').filter(
             Q(user=user) &
             Q(course=course) &
             Q(active=True)).exists():
@@ -63,7 +64,7 @@ def course_unsub(request, course_id: int):
     user = request.user
     course = Course.objects.get(id=course_id)
     try:
-        unsub = CourseSubscription.objects.get(user=user, course=course, active=1)
+        unsub = CourseSubscription.objects.select_related('user', 'course').get(user=user, course=course, active=1)
     except ObjectDoesNotExist:
         return HttpResponse('Unsub is not allowed! This user is not subscribed to this course.')
     unsub.active = 0
