@@ -8,10 +8,17 @@
 
 
 {% block content %}
+<section class="p-4">
+<div class="container">
+    <div class="col-8">
+        shit
+    </div>
+</div>
 
-{{ user }}
-<br>
-<br>
+
+</section>
+
+
 {{ course.title }}
 <br>
 <br>
@@ -27,7 +34,10 @@ FILES:
 
 TESTS:
 <br>
-
+{% for item in course.tests.all %}
+{{ item }}
+<br>
+{% endfor %}
 
 
 {% endblock %}
