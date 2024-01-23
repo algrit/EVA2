@@ -9,36 +9,41 @@
 
 {% block content %}
 <section class="p-4">
-<div class="container">
-    <div class="col-12">
-        <div class="row">
-            <div class="col-2">
-                <img class="bg-white border border-dark rounded" id="course-icon" src="/media/{{ course.icon }}">
+    <div class="container">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-2">
+                    <img class="bg-white border border-dark rounded" id="course-icon" src="/media/{{ course.icon }}">
+                </div>
+                <div class="col-10">
+                    <h4>{{ course.title }}</h4>
+                    {{ course.description }}
+                </div>
             </div>
-            <div class="col-10">
-                <h4>{{ course.title }}</h4>
-                {{ course.description }}
+            <div class="p-3 mt-4 border border-dark rounded" id="algri-container">
+                <h3>Educational Content:</h3>
+                {% for file in content %}
+                <div class="p-3 mt-2 bg-white border border-dark rounded">
+                    {% if file.file.name|slice:"-4:" == ".pdf" %}
+                    <i class="icon-file-pdf"></i>
+                    {% else %}
+                    <i class="icon-youtube-play"></i>
+                    {% endif %}
+                    <a href="/media/{{ file.file }}">{{ file.title }}</a>
+                </div>
+                {% endfor %}
             </div>
-        </div>
-        <div class="p-3 mt-4 border border-dark rounded" id="algri-container">
-            <h3>Educational Content:</h3>
-            {% for file in content %}
-            <div class="p-3 mt-2 bg-white border border-dark rounded">
-                <a href="/media/{{ file.file }}">{{ file.title }}</a>
-            </div>
-            {% endfor %}
-        </div>
-        <div class="p-3 mt-4 border border-dark rounded" id="algri-container">
-            {% for test in course.tests.all %}
+            <div class="p-3 mt-4 border border-dark rounded" id="algri-container">
+                {% for test in course.tests.all %}
                 <div class="p-3 mt-2 bg-white border border-dark rounded">
                     {{ test.title }}
                 </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
+
+
         </div>
-
-
     </div>
-</div>
 
 
 </section>
