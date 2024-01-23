@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
-from education.models import Course, CourseSubscription, Content
+from education.models import Course, CourseSubscription, Content, Test
 from users.forms import ModalLoginForm
 
 
@@ -105,9 +105,7 @@ class CourseView(LoginRequiredMixin, DetailView):
         return context
 
 @login_required
-def test(request, pk: int):
+def test(request, pk_course: int, pk_test: int):
     user = request.user
-    course = Course.objects.prefetch_related('tests').get(id=pk)
-    content = Content.objects.select_related('course').filter(course=course)
-    return render(request, 'education/course_detail.html', context={'user': user,
-                                                                    'course': course, 'content': content,})
+    test = Test.objects.prefetch_related('questions').get(id=pk_test)
+    return render(request, 'education/test.html', context={'user': user, 'test': test})
