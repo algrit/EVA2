@@ -104,10 +104,10 @@ class CourseView(LoginRequiredMixin, DetailView):
         context['content'] = Content.objects.select_related('course').filter(course=context['course'])
         return context
 
-
-# def one_course(request, pk: int):
-#     user = request.user
-#     course = Course.objects.prefetch_related('tests').get(id=pk)
-#     content = Content.objects.select_related('course').filter(course=course)
-#     return render(request, 'education/course_detail.html', context={'user': user,
-#                                                                     'course': course, 'content': content,})
+@login_required
+def test(request, pk: int):
+    user = request.user
+    course = Course.objects.prefetch_related('tests').get(id=pk)
+    content = Content.objects.select_related('course').filter(course=course)
+    return render(request, 'education/course_detail.html', context={'user': user,
+                                                                    'course': course, 'content': content,})
