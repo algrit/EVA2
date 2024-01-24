@@ -11,6 +11,6 @@ if (testAttemptStartModal) {
     // Update the modal's content.
     const modalText = testAttemptStartModal.querySelector('.modal-algri')
 
-    modalText.textContent = `You are trying to start '${test_name}' test quiz. Press OK to continue`
+    modalText.textContent = `You are trying to start "${test_name}" Test Quiz.`
   })
 }
