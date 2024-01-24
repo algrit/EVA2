@@ -37,16 +37,23 @@
                 {% for test in course.tests.all %}
                 <div class="p-3 mt-2 bg-white border border-dark rounded">
                     <i class="icon-book-open"></i>
-                    <a href="{% url 'test' pk_course=course.id pk_test=test.id %}">{{ test.title }}</a>
+                    <a href="{{ test.title }}" data-bs-toggle="modal" data-bs-target="#testAttemptStartModal" data-bs-test_name="{{ test.title }}">
+                        {{ test.title }}
+                    </a>
+
                 </div>
                 {% endfor %}
             </div>
-
-
         </div>
     </div>
-
-
 </section>
 
+<div class="modal fade" id="testAttemptStartModal" tabindex="-1" aria-labelledby="testAttemptStartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h4 class="modal-algri" id="testAttemptStartModalLabel"></h4>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/algri_js_scripts.js'%}"></script>
 {% endblock %}

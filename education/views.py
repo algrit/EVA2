@@ -105,15 +105,18 @@ class CourseView(LoginRequiredMixin, DetailView):
         return context
 
 
+@login_required
+def test_start(request, pk_course: int, pk_test: int):
+    user = request.user
+    test = Test.objects.get(id=pk_test)
+    return render(request, 'education/test.html', context={'user': user, 'test': test})
+
 
 @login_required
 def test_attempt(request, pk_course: int, pk_test: int, pk_test_attempt: int):
     user = request.user
     test = Test.objects.prefetch_related('questions').get(id=pk_test)
     return render(request, 'education/test.html', context={'user': user, 'test': test})
-
-
-
 
 # class TestView(LoginRequiredMixin, DetailView):
 #     model = Test
