@@ -37,7 +37,8 @@
                 {% for test in course.tests.all %}
                 <div class="p-3 mt-2 bg-white border border-dark rounded">
                     <i class="icon-book-open"></i>
-                    <a href="{{ test.title }}" data-bs-toggle="modal" data-bs-target="#testAttemptStartModal" data-bs-test_name="{{ test.title }}">
+                    <a href="{{ test.title }}" data-bs-toggle="modal" data-bs-target="#testAttemptStartModal"
+                       data-bs-test_name="{{ test.title }}">
                         {{ test.title }}
                     </a>
 
@@ -48,11 +49,20 @@
     </div>
 </section>
 
-<div class="modal fade" id="testAttemptStartModal" tabindex="-1" aria-labelledby="testAttemptStartModalLabel" aria-hidden="true">
+<div class="modal fade" id="testAttemptStartModal" tabindex="-1" aria-labelledby="testAttemptStartModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <h4 class="modal-algri" id="testAttemptStartModalLabel"></h4>
-            <h4>Press OK to continue!</h4>
+            <div class="modal-header">
+                <h2 class="modal-title"></h2>
+            </div>
+            <div class="modal-body">
+                <h3 class="modal-text"></h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Ok</button>
+            </div>
         </div>
     </div>
 </div>

@@ -9,8 +9,10 @@ if (testAttemptStartModal) {
     // and then do the updating in a callback.
 
     // Update the modal's content.
-    const modalText = testAttemptStartModal.querySelector('.modal-algri')
+    const modalTitle = testAttemptStartModal.querySelector('.modal-title')
+    const modalBodyText = testAttemptStartModal.querySelector('.modal-text')
 
-    modalText.textContent = `You are trying to start "${test_name}" Test Quiz.`
+    modalTitle.textContent = `"${test_name}" Test`
+    modalBodyText.textContent = `Press OK to start "${test_name}" Test`
   })
 }
