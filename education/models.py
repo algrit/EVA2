@@ -50,7 +50,10 @@ class CourseSubscription(models.Model):
     """Through-Model to connect User and Course. Realize Many-to-Many connection."""
     user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Student')
     course = models.ForeignKey(Course, on_delete=models.PROTECT)
+    course_score = models.FloatField(default=0, blank=True, verbose_name='Course Progress (/100)')
+    course_passed = models.BooleanField(default=False, verbose_name='Course is done (Yes/No)')
     sub_time = models.DateTimeField(auto_now_add=True, verbose_name='Subscription Time')
+    update_time = models.DateTimeField(auto_now=True, verbose_name='Time of last update')
     unsub_time = models.DateTimeField(null=True, default=None, editable=False, verbose_name='Unsub Time')
     active = models.BooleanField(default=True, editable=False)
 
@@ -58,17 +61,17 @@ class CourseSubscription(models.Model):
         return f'{self.user}(id:{self.user.id}) - {self.course}(id:{self.course.id})'
 
 
-class CourseAttempt(models.Model):
-    user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Student')
-    course = models.ForeignKey(Course, on_delete=models.PROTECT)
-    course_score = models.FloatField(default=0, blank=True, verbose_name='Course Progress (/100)')
-    course_passed = models.BooleanField(default=False, verbose_name='Course is done (Yes/No)')
-    create_time = models.DateTimeField(auto_now_add=True, verbose_name='Time of creation')
-    update_time = models.DateTimeField(auto_now=True, verbose_name='Time of last update')
+# class CourseAttempt(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Student')
+#     course = models.ForeignKey(Course, on_delete=models.PROTECT)
+#     course_score = models.FloatField(default=0, blank=True, verbose_name='Course Progress (/100)')
+#     course_passed = models.BooleanField(default=False, verbose_name='Course is done (Yes/No)')
+#     create_time = models.DateTimeField(auto_now_add=True, verbose_name='Time of creation')
+#     update_time = models.DateTimeField(auto_now=True, verbose_name='Time of last update')
 
 
 class TestAttempt(models.Model):
-    course_attempt = models.ForeignKey(CourseAttempt, on_delete=models.PROTECT, verbose_name='Course Attempt ID')
+    course_attempt = models.ForeignKey(CourseSubscription, on_delete=models.PROTECT, verbose_name='Course Attempt ID')
     test = models.ForeignKey(Test, on_delete=models.PROTECT, verbose_name='Test Quiz')
     test_score = models.FloatField(default=0, blank=True, verbose_name='Test Progress (/100)')
     test_passed = models.BooleanField(default=False, verbose_name='Test is done (Yes/No)')
