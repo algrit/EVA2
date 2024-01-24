@@ -8,8 +8,12 @@
 
 
 {% block content %}
-    {% for question in test.questions.all %}
-        {{question.title}}
-        {{question.question_text}}
+    {% for question in tests.questions.all %}
+    <form>
+        Question: {{question.question_text}} <br> <br>
+        Answer 1: {{question.correct_answer}} <br> <br>
+        Answer 2: {{question.incorrect_answer1}} <br> <br>
+        Answer 3: {{question.incorrect_answer2}} <br>
+    </form>
     {% endfor %}
 {% endblock %}

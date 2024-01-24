@@ -104,8 +104,17 @@ class CourseView(LoginRequiredMixin, DetailView):
         context['content'] = Content.objects.select_related('course').filter(course=context['course'])
         return context
 
+
+
 @login_required
-def test(request, pk_course: int, pk_test: int):
+def test_attempt(request, pk_course: int, pk_test: int, pk_test_attempt: int):
     user = request.user
     test = Test.objects.prefetch_related('questions').get(id=pk_test)
     return render(request, 'education/test.html', context={'user': user, 'test': test})
+
+
+
+
+# class TestView(LoginRequiredMixin, DetailView):
+#     model = Test
+#     template_name = 'education/test.html'
