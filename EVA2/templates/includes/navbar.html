@@ -70,17 +70,19 @@
 
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <form method="post">
-                <h2>EVA</h2>
-                {% csrf_token %}
-                {% for field in form %}
-                {{ field }}
-                {% endfor %}
-                <button type="submit">Login</button>
-            </form>
-            <div class="message">
-                Don't have an account yet? <a href="{% url 'register' %}">Sign Up</a>
+        <div class="modal-content border border-0 bg-transparent">
+            <div class="algri-modal-login">
+                <form method="post">
+                    <h2>EVA</h2>
+                    {% csrf_token %}
+                    {% for field in form %}
+                    {{ field }}
+                    {% endfor %}
+                    <button type="submit">Login</button>
+                </form>
+                <div class="algri-modal-login-message">
+                    Don't have an account yet? <a href="{% url 'register' %}">Sign Up</a>
+                </div>
             </div>
         </div>
     </div>
