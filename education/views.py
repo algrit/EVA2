@@ -112,7 +112,7 @@ def test_att_create(request, pk_course: int, pk_test: int):
     course_attempt = CourseSubscription.objects.select_related('user', 'course').get(user=user, course__id=pk_course, active=1)
     test_attempt = TestAttempt(user=user, course_attempt=course_attempt, test=test)
     test_attempt.save()
-    return HttpResponseRedirect(f'my/{pk_course}/{pk_test}/{test_attempt.id}/')
+    return HttpResponseRedirect(f'/my/{pk_course}/{pk_test}/{test_attempt.id}/')
 
 
 # @login_required
