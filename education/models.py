@@ -71,6 +71,7 @@ class CourseSubscription(models.Model):
 
 
 class TestAttempt(models.Model):
+    user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Student')
     course_attempt = models.ForeignKey(CourseSubscription, on_delete=models.PROTECT, verbose_name='Course Attempt ID')
     test = models.ForeignKey(Test, on_delete=models.PROTECT, verbose_name='Test Quiz')
     test_score = models.FloatField(default=0, blank=True, verbose_name='Test Progress (/100)')

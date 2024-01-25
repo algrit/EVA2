@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
-from education.models import Course, CourseSubscription, Content, Test
+from education.models import Course, CourseSubscription, Content, Test, TestAttempt
 from users.forms import ModalLoginForm
 
 
@@ -106,17 +106,20 @@ class CourseView(LoginRequiredMixin, DetailView):
 
 
 @login_required
-def test_start(request, pk_course: int, pk_test: int):
+def test_att_create(request, pk_course: int, pk_test: int):
     user = request.user
     test = Test.objects.get(id=pk_test)
-    return render(request, 'education/test.html', context={'user': user, 'test': test})
+    course_attempt = CourseSubscription.objects.select_related('user', 'course').get(user=user, course__id=pk_course, active=1)
+    test_attempt = TestAttempt(user=user, course_attempt=course_attempt, test=test)
+    test_attempt.save()
+    return HttpResponseRedirect(f'my/{pk_course}/{pk_test}/{test_attempt.id}/')
 
 
-@login_required
-def test_attempt(request, pk_course: int, pk_test: int, pk_test_attempt: int):
-    user = request.user
-    test = Test.objects.prefetch_related('questions').get(id=pk_test)
-    return render(request, 'education/test.html', context={'user': user, 'test': test})
+# @login_required
+# def test_attempt(request, pk_course: int, pk_test: int, pk_test_attempt: int):
+#     user = request.user
+#     test = Test.objects.prefetch_related('questions').get(id=pk_test)
+#     return render(request, 'education/test.html', context={'user': user, 'test': test})
 
 # class TestView(LoginRequiredMixin, DetailView):
 #     model = Test
