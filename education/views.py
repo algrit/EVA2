@@ -1,5 +1,6 @@
 import datetime
 
+from django import forms
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -10,7 +11,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
 from education.forms import QuestionForm
-from education.models import Course, CourseSubscription, Content, Test, TestAttempt
+from education.models import Course, CourseSubscription, Content, Test, TestAttempt, Question
 from users.forms import ModalLoginForm
 
 
@@ -126,5 +127,15 @@ def test_attempt(request, pk_course: int, pk_test: int, pk_test_attempt: int):
     # return render(request, 'education/test_attempt.html', context={ 'user': user, 'test': test})
 
 def some_test_shit(request):
-    questions_form = QuestionForm()
-    return render(request, 'education/test_attempt.html', context={'questions_form': questions_form})
+
+    q_list = Question.objects.filter(test__id=1)
+    q = q_list[0]
+    CHOICES = [('correct', q.correct_answer),
+               ('incorrect1', q.incorrect_answer1),
+               ('incorrect2', q.incorrect_answer2),]
+
+    choice_field = forms.ChoiceField(label="My LABEL", widget=forms.RadioSelect(),
+                                     choices=CHOICES)
+    form_class = QuestionForm()
+    form_class.fields["question"] = choice_field
+    return render(request, 'education/test_attempt.html', context={'form': form_class, 'q_list': q_list})
