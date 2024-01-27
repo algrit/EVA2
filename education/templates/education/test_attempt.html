@@ -1,0 +1,6 @@
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ questions_form }}
+    </form>
+{% endblock %}
