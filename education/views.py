@@ -127,15 +127,15 @@ def test_attempt(request, pk_course: int, pk_test: int, pk_test_attempt: int):
     # return render(request, 'education/test_attempt.html', context={ 'user': user, 'test': test})
 
 def some_test_shit(request):
-
+    form_class = QuestionForm()
     q_list = Question.objects.filter(test__id=1)
-    q = q_list[0]
-    CHOICES = [('correct', q.correct_answer),
+    for q in q_list:
+        CHOICES = [('correct', q.correct_answer),
                ('incorrect1', q.incorrect_answer1),
                ('incorrect2', q.incorrect_answer2),]
-
-    choice_field = forms.ChoiceField(label="My LABEL", widget=forms.RadioSelect(),
+        choice_field = forms.ChoiceField(label=q.question_text, widget=forms.RadioSelect(),
                                      choices=CHOICES)
-    form_class = QuestionForm()
-    form_class.fields["question"] = choice_field
+        form_class.fields[f"{q}"] = choice_field
+
+
     return render(request, 'education/test_attempt.html', context={'form': form_class, 'q_list': q_list})
