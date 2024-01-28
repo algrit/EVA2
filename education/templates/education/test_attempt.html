@@ -1,7 +1,11 @@
 {% block content %}
     <form method="post">
         {% csrf_token %}
-        {{ form }}
-        {{q_list}}
+        {% for question in form %}
+            {{ question.label }}
+            {{ question }}
+        <br>
+        {% endfor %}
+        <button type="submit">End test</button>
     </form>
 {% endblock %}

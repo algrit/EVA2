@@ -126,16 +126,23 @@ def test_attempt(request, pk_course: int, pk_test: int, pk_test_attempt: int):
 
     # return render(request, 'education/test_attempt.html', context={ 'user': user, 'test': test})
 
+
 def some_test_shit(request):
+    test_list = []
     form_class = QuestionForm()
     q_list = Question.objects.filter(test__id=1)
-    for q in q_list:
-        CHOICES = [('correct', q.correct_answer),
-               ('incorrect1', q.incorrect_answer1),
-               ('incorrect2', q.incorrect_answer2),]
-        choice_field = forms.ChoiceField(label=q.question_text, widget=forms.RadioSelect(),
-                                     choices=CHOICES)
-        form_class.fields[f"{q}"] = choice_field
+    for question in q_list:
+        ANSWERS = [('correct', question.correct_answer),
+                   ('incorrect1', question.incorrect_answer1),
+                   ('incorrect2', question.incorrect_answer2), ]
+        choice_field = forms.ChoiceField(label=question.question_text, widget=forms.RadioSelect(),
+                                         choices=ANSWERS)
+        form_class.fields[f"{question}"] = choice_field
+    if request.method == 'POST':
+        form_class = QuestionForm(request.POST)
+        if form_class.is_valid():
+            corrects = [i for i, k in form_class.data.items() if form_class.data[i] == 'correct']
+            print(corrects)
+            return HttpResponse(f'{len(corrects)}')
 
-
-    return render(request, 'education/test_attempt.html', context={'form': form_class, 'q_list': q_list})
+    return render(request, 'education/test_attempt.html', context={'form': form_class})
