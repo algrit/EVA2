@@ -11,7 +11,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
 from education.forms import QuestionForm
-from education.models import Course, CourseSubscription, Content, Test, TestAttempt, Question
+from education.models import Course, CourseSubscription, Content, Test, TestAttempt, Question, QuestionAttempt
 from users.forms import ModalLoginForm
 
 
@@ -127,8 +127,9 @@ def test_attempt(request, pk_course: int, pk_test: int, pk_test_attempt: int):
     # return render(request, 'education/test_attempt.html', context={ 'user': user, 'test': test})
 
 
-def some_test_shit(request):
-    test_list = []
+def some_test_shit(request, pk_test_attempt: int):
+    user = request.user
+    # q_att = QuestionAttempt.
     form_class = QuestionForm()
     q_list = Question.objects.filter(test__id=1)
     for question in q_list:
@@ -137,12 +138,22 @@ def some_test_shit(request):
                    ('incorrect2', question.incorrect_answer2), ]
         choice_field = forms.ChoiceField(label=question.question_text, widget=forms.RadioSelect(),
                                          choices=ANSWERS)
-        form_class.fields[f"{question}"] = choice_field
+        form_class.fields[f"{question.id}"] = choice_field
     if request.method == 'POST':
         form_class = QuestionForm(request.POST)
         if form_class.is_valid():
-            corrects = [i for i, k in form_class.data.items() if form_class.data[i] == 'correct']
-            print(corrects)
-            return HttpResponse(f'{len(corrects)}')
+            for q, answer_name in dict(list(form_class.data.items())[1:]).items():
+                question = Question.objects.get(id=q)
+                if form_class.data[q] == 'correct':
+                    QuestionAttempt(user=user, test_attempt_id=pk_test_attempt, question=question,
+                                    answer=question.correct_answer, question_passed=1).save()
+                elif form_class.data[q] == 'incorrect1':
+                    QuestionAttempt(user=user, test_attempt_id=pk_test_attempt, question=question,
+                                    answer=question.incorrect_answer1, question_passed=0).save()
+                else:
+                    QuestionAttempt(user=user, test_attempt_id=pk_test_attempt, question=question,
+                                    answer=question.incorrect_answer2, question_passed=0).save()
+            # corrects = [type(i) for i, k in form_class.data.items() if form_class.data[i] == 'correct']
+            return HttpResponse(f'{QuestionAttempt.objects.all()}')
 
     return render(request, 'education/test_attempt.html', context={'form': form_class})
