@@ -129,7 +129,6 @@ def test_attempt(request, pk_course: int, pk_test: int, pk_test_attempt: int):
 
 def some_test_shit(request, pk_test_attempt: int):
     user = request.user
-    # q_att = QuestionAttempt.
     form_class = QuestionForm()
     q_list = Question.objects.filter(test__id=1)
     for question in q_list:
@@ -153,7 +152,6 @@ def some_test_shit(request, pk_test_attempt: int):
                 else:
                     QuestionAttempt(user=user, test_attempt_id=pk_test_attempt, question=question,
                                     answer=question.incorrect_answer2, question_passed=0).save()
-            # corrects = [type(i) for i, k in form_class.data.items() if form_class.data[i] == 'correct']
             return HttpResponse(f'{QuestionAttempt.objects.all()}')
 
     return render(request, 'education/test_attempt.html', context={'form': form_class})
