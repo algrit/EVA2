@@ -119,18 +119,11 @@ def test_att_create(request, pk_course: int, pk_test: int):
 
 
 @login_required
-def test_attempt(request, pk_course: int, pk_test: int, pk_test_attempt: int):
-    # questions_form = QuestionForm
-    user = request.user
-    test = Test.objects.prefetch_related('questions').get(id=pk_test)
-
-    # return render(request, 'education/test_attempt.html', context={ 'user': user, 'test': test})
-
-
-def some_test_shit(request, pk_test_attempt: int):
+def test_attempt(request, pk_test_attempt: int):
     user = request.user
     form_class = QuestionForm()
-    q_list = Question.objects.filter(test__id=1)
+    test_quiz = TestAttempt.objects.get(id=pk_test_attempt).test
+    q_list = Question.objects.filter(test__id=test_quiz.id)
     for question in q_list:
         ANSWERS = [('correct', question.correct_answer),
                    ('incorrect1', question.incorrect_answer1),
