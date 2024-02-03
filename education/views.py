@@ -115,7 +115,7 @@ def test_att_create(request, pk_course: int, pk_test: int):
                                                                                      active=1)
     test_attempt = TestAttempt(user=user, course_attempt=course_attempt, test=test)
     test_attempt.save()
-    return HttpResponseRedirect(f'/edu/my/{pk_course}/{pk_test}/{test_attempt.id}/')
+    return HttpResponseRedirect(f'/edu/my/attempt/{test_attempt.id}/')
 
 
 @login_required
