@@ -131,6 +131,7 @@ def test_attempt(request, pk_test_attempt: int):
         choice_field = forms.ChoiceField(label=question.question_text, widget=forms.RadioSelect(),
                                          choices=ANSWERS)
         form_class.fields[f"{question.id}"] = choice_field
+
     if request.method == 'POST':
         form_class = QuestionForm(request.POST)
         if form_class.is_valid():
@@ -145,6 +146,14 @@ def test_attempt(request, pk_test_attempt: int):
                 else:
                     QuestionAttempt(user=user, test_attempt_id=pk_test_attempt, question=question,
                                     answer=question.incorrect_answer2, question_passed=0).save()
+
+
             return HttpResponse(f'{QuestionAttempt.objects.all()}')
 
     return render(request, 'education/test_attempt.html', context={'form': form_class})
+
+@login_required
+def test_result(request, pk_test_attempt: int):
+    user = request.user
+    form_class = QuestionForm()
+    pass
