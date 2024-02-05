@@ -157,7 +157,8 @@ def test_attempt(request, pk_test_attempt: int):
                     QuestionAttempt(user=user, test_attempt_id=pk_test_attempt, question=question,
                                     answer=question.incorrect_answer2, question_passed=0).save()
 
-            return HttpResponseRedirect((reverse('test_result', args=[pk_test_attempt])))
+            # return HttpResponseRedirect((reverse('test_result', args=[pk_test_attempt])))
+            return HttpResponse('Its OK')
 
     return render(request, 'education/test_attempt.html', context={'form': form_class})
 

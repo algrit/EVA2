@@ -27,10 +27,10 @@
             </p>
         </div>
         <hr>
-        <a href="{% url 'test_att_create' pk_course=course.id pk_test=test_quiz.id %}">
+        <a href="{% url 'test_att_create' pk_course=course.id pk_test=test_quiz.id %}" style="text-decoration:none">
             <button class="me-2">Ok</button>
         </a>
-        <a href="{% url 'my_course' pk=course.id %}">
+        <a href="{% url 'my_course' pk=course.id %}" style="text-decoration:none">
             <button>Back</button>
         </a>
     </div>

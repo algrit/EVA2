@@ -3,29 +3,45 @@
 
 {% block scripts %}
 <link href="{% static 'css/education_base.css'%}" rel="stylesheet">
+<link href="{% static 'css/modal_window.css'%}" rel="stylesheet">
 <link href="{% static 'fontello/css/fontello.css'%}" rel="stylesheet">
 {% endblock %}
-
 
 
 {% block content %}
 <section class="p-4">
     <div class="container">
         <form method="post">
-        {% csrf_token %}
+            {% csrf_token %}
             <div class="row">
                 {% for question in form %}
                 <div class="p-3 mt-3 border border-dark rounded" id="algri-container">
                     {{ question.label }}
                     {{ question }}
                 </div>
-                    {% endfor %}
+                {% endfor %}
             </div>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#testAttemptEndModal">End test</button>
 
-
-        <button type="submit">End test</button>
-    </form>
+            <div class="modal fade" id="testAttemptEndModal" tabindex="-1" aria-labelledby="testAttemptEndModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">End test</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to end test?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">End test</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-
 </section>
 {% endblock %}
