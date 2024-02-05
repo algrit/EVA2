@@ -4,6 +4,7 @@ from django import forms
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import HttpResponseRedirect, HttpResponse
@@ -124,7 +125,7 @@ def test_att_create(request, pk_course: int, pk_test: int):
                                                                                      active=1)
     test_attempt = TestAttempt(user=user, course_attempt=course_attempt, test=test)
     test_attempt.save()
-    return HttpResponseRedirect(f'/edu/my/attempt/{test_attempt.id}/')
+    return HttpResponseRedirect((reverse('test_attempt', args=[test_attempt.id])))
 
 
 @login_required
@@ -156,7 +157,7 @@ def test_attempt(request, pk_test_attempt: int):
                     QuestionAttempt(user=user, test_attempt_id=pk_test_attempt, question=question,
                                     answer=question.incorrect_answer2, question_passed=0).save()
 
-            return HttpResponse(f'{QuestionAttempt.objects.all()}')
+            return HttpResponseRedirect((reverse('test_result', args=[pk_test_attempt])))
 
     return render(request, 'education/test_attempt.html', context={'form': form_class})
 
