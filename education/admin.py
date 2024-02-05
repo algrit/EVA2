@@ -41,7 +41,7 @@ class CourseSubscriptionAdmin(admin.ModelAdmin):
 
 @admin.register(TestAttempt)
 class TestAttemptAdmin(admin.ModelAdmin):
-    list_display = ['id', 'course_attempt', 'test', 'test_score', 'test_passed']
+    list_display = ['id', 'course_attempt', 'test', 'test_score', 'test_passed', 'active']
     ordering = ['id']
     list_per_page = 10
 

@@ -1,14 +1,16 @@
+from django.contrib import messages
+
 import datetime
 
 from django import forms
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
+from django.urls import reverse
 from django.views.generic import ListView, DetailView
 
 from education.forms import QuestionForm
@@ -107,6 +109,7 @@ class CourseView(LoginRequiredMixin, DetailView):
         context['content'] = Content.objects.select_related('course').filter(course=context['course'])
         return context
 
+
 @login_required
 def start_test_warning(request, pk_course: int, pk_test: int):
     test_quiz = Test.objects.get(id=pk_test)
@@ -130,9 +133,12 @@ def test_att_create(request, pk_course: int, pk_test: int):
 
 @login_required
 def test_attempt(request, pk_test_attempt: int):
+    test_att = TestAttempt.objects.get(id=pk_test_attempt)
+    if test_att.active == 0:
+        return HttpResponse('This test attempt is already ended.')
     user = request.user
     form_class = QuestionForm()
-    test_quiz = TestAttempt.objects.get(id=pk_test_attempt).test
+    test_quiz = test_att.test
     q_list = Question.objects.filter(test__id=test_quiz.id)
     for question in q_list:
         ANSWERS = [('correct', question.correct_answer),
@@ -145,6 +151,8 @@ def test_attempt(request, pk_test_attempt: int):
     if request.method == 'POST':
         form_class = QuestionForm(request.POST)
         if form_class.is_valid():
+            test_att.active = 0
+            test_att.save()
             for q, answer_name in dict(list(form_class.data.items())[1:]).items():
                 question = Question.objects.get(id=q)
                 if form_class.data[q] == 'correct':

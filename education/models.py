@@ -76,7 +76,7 @@ class TestAttempt(models.Model):
     test = models.ForeignKey(Test, on_delete=models.PROTECT, verbose_name='Test Quiz')
     test_score = models.FloatField(default=0, blank=True, verbose_name='Test Progress (/100)')
     test_passed = models.BooleanField(default=False, verbose_name='Test is passed (Yes/No)')
-    active = models.BooleanField(default=True, editable=False)
+    active = models.BooleanField(default=True)
 
 class QuestionAttempt(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Student')
