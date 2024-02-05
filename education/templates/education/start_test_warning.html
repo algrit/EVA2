@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block scripts %}
+<link href="{% static 'css/education_base.css'%}" rel="stylesheet">
+<link href="{% static 'css/warning_messages.css'%}" rel="stylesheet">
+<link href="{% static 'fontello/css/fontello.css'%}" rel="stylesheet">
+{% endblock %}
+
+{% block title %} Test Start Warning {% endblock %}
+
+{% block content %}
+
+<div class="warning-message-window">
+    <div class="warning-message">
+        <div class="title">
+            {{ test_quiz.title }}
+        </div>
+        <hr>
+        <div class="text">
+            <p>You are going to start '{{ test_quiz.title }}' Test. Press OK to start Attempt.</p>
+            <p>This test will have the following settings:<br>
+            Exam test: <span class="value">No</span> <br>
+            Number of questions: <span class="value">{{ number_of_q }}</span> <br>
+            Time Limit: <span class="value">Unlimited</span> <br>
+            Tries Limit: <span class="value">Unlimited</span> <br>
+            </p>
+        </div>
+        <hr>
+        <a href="{% url 'test_att_create' pk_course=course.id pk_test=test_quiz.id %}">
+            <button class="me-2">Ok</button>
+        </a>
+        <a href="{% url 'my_course' pk=course.id %}">
+            <button>Back</button>
+        </a>
+    </div>
+</div>
+
+{% endblock %}

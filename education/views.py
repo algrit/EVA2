@@ -106,6 +106,15 @@ class CourseView(LoginRequiredMixin, DetailView):
         context['content'] = Content.objects.select_related('course').filter(course=context['course'])
         return context
 
+@login_required
+def start_test_warning(request, pk_course: int, pk_test: int):
+    test_quiz = Test.objects.get(id=pk_test)
+    number_of_q = len(Question.objects.filter(test__id=pk_test))
+    course = Course.objects.get(id=pk_course)
+    return render(request, 'education/start_test_warning.html', context={'test_quiz': test_quiz,
+                                                                         'number_of_q': number_of_q,
+                                                                         'course': course})
+
 
 @login_required
 def test_att_create(request, pk_course: int, pk_test: int):
@@ -147,10 +156,10 @@ def test_attempt(request, pk_test_attempt: int):
                     QuestionAttempt(user=user, test_attempt_id=pk_test_attempt, question=question,
                                     answer=question.incorrect_answer2, question_passed=0).save()
 
-
             return HttpResponse(f'{QuestionAttempt.objects.all()}')
 
     return render(request, 'education/test_attempt.html', context={'form': form_class})
+
 
 @login_required
 def test_result(request, pk_test_attempt: int):

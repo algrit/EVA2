@@ -12,7 +12,7 @@ class BaseContent(models.Model):
         abstract = True
 
     def __str__(self):
-        return f'{self.title} (id:{self.id})'
+        return f'{self.title}(id:{self.id})'
 
 
 class Question(BaseContent):
@@ -58,7 +58,7 @@ class CourseSubscription(models.Model):
     active = models.BooleanField(default=True, editable=False)
 
     def __str__(self):
-        return f'{self.user}(id:{self.user.id}) - {self.course}(id:{self.course.id})'
+        return f'{self.user}(id:{self.user.id}) - {self.course}'
 
 
 # class CourseAttempt(models.Model):
