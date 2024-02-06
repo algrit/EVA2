@@ -135,7 +135,7 @@ def test_att_create(request, pk_course: int, pk_test: int):
 def test_attempt(request, pk_test_attempt: int):
     test_att = TestAttempt.objects.get(id=pk_test_attempt)
     if test_att.active == 0:
-        return HttpResponse('This test attempt is already ended.')
+        return HttpResponse('<h1>This test attempt is already ended. You can not continue it.</h1>')
     user = request.user
     form_class = QuestionForm()
     test_quiz = test_att.test
@@ -152,23 +152,35 @@ def test_attempt(request, pk_test_attempt: int):
         form_class = QuestionForm(request.POST)
         if form_class.is_valid():
             test_att.active = 0
-            test_att.save()
+
+            num_q = len(q_list)
+            num_corrects = 0
             for q, answer_name in dict(list(form_class.data.items())[1:]).items():
                 question = Question.objects.get(id=q)
                 if form_class.data[q] == 'correct':
                     QuestionAttempt(user=user, test_attempt_id=pk_test_attempt, question=question,
                                     answer=question.correct_answer, question_passed=1).save()
+                    num_corrects += 1
                 elif form_class.data[q] == 'incorrect1':
                     QuestionAttempt(user=user, test_attempt_id=pk_test_attempt, question=question,
                                     answer=question.incorrect_answer1, question_passed=0).save()
                 else:
                     QuestionAttempt(user=user, test_attempt_id=pk_test_attempt, question=question,
                                     answer=question.incorrect_answer2, question_passed=0).save()
+            test_score = round(num_corrects // num_q * 100)
+            test_att.test_score = test_score
+            if test_score >= 80:
+                test_att.test_passed = 1
+            test_att.save()
 
             # return HttpResponseRedirect((reverse('test_result', args=[pk_test_attempt])))
             return HttpResponse('Its OK')
 
     return render(request, 'education/test_attempt.html', context={'form': form_class})
+
+
+def update_course_sub_score():
+    pass
 
 
 @login_required
