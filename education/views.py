@@ -1,5 +1,3 @@
-from django.contrib import messages
-
 import datetime
 
 from django import forms
@@ -132,6 +130,14 @@ def test_att_create(request, pk_course: int, pk_test: int):
     return HttpResponseRedirect((reverse('test_attempt', args=[test_attempt.id])))
 
 
+def update_test_att_score(test_att, num_corrects, num_q):
+    test_score = round(num_corrects / num_q * 100)
+    test_att.test_score = test_score
+    if test_score >= 80:
+        test_att.test_passed = True
+    test_att.save()
+
+
 @login_required
 def test_attempt(request, pk_test_attempt: int):
     test_att = TestAttempt.objects.get(id=pk_test_attempt)
@@ -152,9 +158,8 @@ def test_attempt(request, pk_test_attempt: int):
     if request.method == 'POST':
         form_class = QuestionForm(request.POST)
         if form_class.is_valid():
+            test_att.end_time = datetime.datetime.now()
             test_att.active = 0
-
-            num_q = len(q_list)
             num_corrects = 0
             for q, answer_name in dict(list(form_class.data.items())[1:]).items():
                 question = Question.objects.get(id=q)
@@ -168,24 +173,33 @@ def test_attempt(request, pk_test_attempt: int):
                 else:
                     QuestionAttempt(user=user, test_attempt_id=pk_test_attempt, question=question,
                                     answer=question.incorrect_answer2, question_passed=0).save()
-            test_score = round(num_corrects / num_q * 100)
-            test_att.test_score = test_score
-            if test_score >= 80:
-                test_att.test_passed = True
-            test_att.save()
+            update_test_att_score(test_att, num_corrects, len(q_list))
 
             # return HttpResponseRedirect((reverse('test_result', args=[pk_test_attempt])))
-            return HttpResponse('Its OK')
-
+            # return HttpResponse('Its OK')
+            return HttpResponseRedirect(f'/edu/my/attempt/result/{test_att.id}/')
     return render(request, 'education/test_attempt.html', context={'form': form_class})
 
 
-def update_course_sub_score():
-    pass
-
+def ugly_test_time_spent_format(end_time, start_time):
+    time_spent = end_time - start_time
+    day_time_list = str(time_spent).split('.')[0].split(',')
+    time = day_time_list[-1].split(':')
+    time_spent = f'{time[-1]} seconds'
+    if len(time) > 1:
+        time_spent = f'{time[-2]} minutes {time_spent}'
+    if len(time) > 2:
+        time_spent = f'{time[-3]} hours {time_spent}'
+    if len(day_time_list) > 1:
+        time_spent = f'{day_time_list[-2]} {time_spent}'
+    return time_spent
 
 @login_required
-def test_result(request, pk_test_attempt: int):
+def test_att_result(request, pk_test_attempt: int):
     user = request.user
+    test_att = TestAttempt.objects.get(id=pk_test_attempt)
+    time_spent = ugly_test_time_spent_format(test_att.end_time, test_att.start_time)
+
     form_class = QuestionForm()
-    pass
+    return render(request, 'education/test_att_result.html', context={'test_att': test_att,
+                                                                      'time_spent': time_spent})

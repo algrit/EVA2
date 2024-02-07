@@ -74,6 +74,8 @@ class TestAttempt(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Student')
     course_attempt = models.ForeignKey(CourseSubscription, on_delete=models.PROTECT, verbose_name='Course Attempt ID')
     test = models.ForeignKey(Test, on_delete=models.PROTECT, verbose_name='Test Quiz')
+    start_time = models.DateTimeField(auto_now_add=True, null=True, verbose_name='Test Start Time')
+    end_time = models.DateTimeField(null=True, default=None, verbose_name='Test End Time')
     test_score = models.FloatField(default=0, blank=True, verbose_name='Test Progress (%)')
     test_passed = models.BooleanField(default=False, verbose_name='Test is passed (Yes/No)')
     active = models.BooleanField(default=True)
