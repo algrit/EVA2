@@ -19,6 +19,7 @@ from users.forms import ModalLoginForm
 
 
 def index(request):
+    print(request.user)
     if request.method == 'POST':
         login_form = ModalLoginForm(request,
                                     data=request.POST)  # Somehow 1st argument of AuthenticationForm have to be 'request'
@@ -167,10 +168,10 @@ def test_attempt(request, pk_test_attempt: int):
                 else:
                     QuestionAttempt(user=user, test_attempt_id=pk_test_attempt, question=question,
                                     answer=question.incorrect_answer2, question_passed=0).save()
-            test_score = round(num_corrects // num_q * 100)
+            test_score = round(num_corrects / num_q * 100)
             test_att.test_score = test_score
             if test_score >= 80:
-                test_att.test_passed = 1
+                test_att.test_passed = True
             test_att.save()
 
             # return HttpResponseRedirect((reverse('test_result', args=[pk_test_attempt])))
