@@ -4,3 +4,8 @@ body {
     background: #3d3d3d;
     font-family: "Lato", sans-serif;
 }
+
+.q-text {
+    text-align: center;
+    font-size: 20px;
+}
