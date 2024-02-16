@@ -86,3 +86,6 @@ class QuestionAttempt(models.Model):
     question = models.ForeignKey(Question, on_delete=models.PROTECT, verbose_name='Question')
     answer = models.TextField(verbose_name='Given Answer')
     question_passed = models.BooleanField(default=False, verbose_name='Answer is correct (Yes/No)')
+
+    def __str__(self):
+        return f'{self.title}(id:{self.id})'

@@ -204,14 +204,21 @@ def test_att_result(request, pk_test_attempt: int):
     num_corrects = len([answer for answer in q_answered if answer.question_passed == 1])
     corrects = f'{num_corrects} / {len(q_answered)}'
     percent = round(num_corrects / len(q_answered) * 100)
-    q_dict = {}
+    q_answers_dict = {}
     questions = Question.objects.filter(test__id=test_att.test.id)
-    # for question in q_answered:
+    for question in questions:
+        q_answers_dict[str(question)] = QuestionAttempt.objects.get(test_attempt=test_att, question=question).answer
+        print(q_answers_dict)
+
+
         # q_dict[question.question.question_text] = {'correct': question.question.correct_answer}
         # q_dict[question.question.question_text]['incorrect1'] = question.question.incorrect_answer1
         # q_dict[question.question.question_text]['incorrect2'] = question.question.incorrect_answer2
+    shit = 'Decorators01(id:17)'
     return render(request, 'education/test_att_result.html', context={'test_att': test_att,
                                                                       'time_spent': time_spent, 'corrects': corrects,
-                                                                      'percent': percent, 'questions': questions})
+                                                                      'percent': percent, 'questions': questions,
+                                                                      'q_answers_dict': q_answers_dict,
+                                                                      'shit': shit})
 
 diction = {'text':{'correct', 'incorrect', 'incorrect2', 'given'}}

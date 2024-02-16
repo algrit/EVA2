@@ -14,7 +14,7 @@
         <div class="row">
             <div class="algri-container-primary ps-5 pt-3 pb-3 pe-5 border border-dark rounded">
                 <span class="title">{{ test_att.test.title }} Test</span>
-                <div class="algri-container-secondary col-12 mt-3 p-3 border border-dark rounded">
+                <div class="algri-container-secondary col-12 mt-3 mb-3 p-3 border border-dark rounded">
                     <div class="row"><span>Test started: {{ test_att.start_time }}</span></div>
                     <div class="row"><span>Test ended: {{ test_att.end_time }}</span></div>
                     <div class="row"><span>Time spent: {{ time_spent }}</span></div>
@@ -30,17 +30,35 @@
 
             <div class="algri-container-primary ps-5 pt-3 pb-3 pe-5 mt-3 border border-dark rounded">
                 <span class="title">Questions:</span>
+
                 {% for q in questions %}
                 <div class="algri-container-secondary col-12 mt-4 p-3 border border-dark rounded">
                     <div class="algri-container-primary q-text p-2 mb-3 border border-dark rounded">
                         {{ q.question_text }}
                     </div>
+
+                        {{q_answers_dict|get_key:shit}}
+
+
+                    {% if q.correct_answer == q_answers_dict.shit  %}
+                    <div class="algri-container-primary p-2 mb-3 border border-dark rounded bg-success">
+                        {{ q.correct_answer }}
+                    </div>
+                    {% endif %}
+
+
+
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                     <div class="row"><span>{{ q.correct_answer }}</span></div>
                     <div class="row"><span>{{ q.incorrect_answer1 }}</span></div>
                     <div class="row"><span>{{ q.incorrect_answer2 }}</span></div>
                     <div class="row"><span>{{ q.comment }}</span></div>
+
                 </div>
-                    {% endfor %}
+                {% endfor %}
 
 
             </div>
