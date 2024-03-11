@@ -3,7 +3,7 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.index, name='main'),
+    path('', views.index, name='main'),  # name is used in the login.html
     path('courses/', views.all_courses, name='all_courses'),  # name is used in the navbar
     path('course_sub/<int:course_id>/', views.course_sub, name='course_sub'),  # name is used in Course Sub buttons
     path('course_unsub/<int:course_id>/', views.course_unsub, name='course_unsub'),  # name is used in Course Sub buttons
