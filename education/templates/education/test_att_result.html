@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load best_filters %}
 
 {% block scripts %}
 <link href="{% static 'css/education_base.css'%}" rel="stylesheet">
@@ -35,23 +34,17 @@
                 {% for q in questions %}
                 <div class="algri-container-secondary col-12 mt-4 p-3 border border-dark rounded">
                     <div class="algri-container-primary q-text p-2 mb-3 border border-dark rounded">
-                        {{ q.question_text }}
+
+                        {{ q_answers_list.qid }}
+
                     </div>
 
-                        {{q_answers_dict|get_key:shit}}
-
-                    {% if q.correct_answer == q_answers_dict.shit  %}
                     <div class="algri-container-primary p-2 mb-3 border border-dark rounded bg-success">
                         {{ q.correct_answer }}
                     </div>
-                    {% endif %}
 
 
 
-                    <br>
-                    <br>
-                    <br>
-                    <br>
                     <div class="row"><span>{{ q.correct_answer }}</span></div>
                     <div class="row"><span>{{ q.incorrect_answer1 }}</span></div>
                     <div class="row"><span>{{ q.incorrect_answer2 }}</span></div>
