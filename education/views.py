@@ -209,16 +209,20 @@ def test_att_result(request, pk_test_attempt: int):
 
     q_list = []
     for question in questions:
-        q_list.append({'text': question.question_text, 'green': question.correct_answer})
-        if question.incorrect_answer1 == QuestionAttempt.objects.get(test_attempt=test_att, question=question).answer:
-            q_list[-1]['red'] = question.incorrect_answer1
-            q_list[-1]['white'] = question.incorrect_answer2
-        elif question.incorrect_answer2 == QuestionAttempt.objects.get(test_attempt=test_att, question=question).answer:
-            q_list[-1]['red'] = question.incorrect_answer2
-            q_list[-1]['white'] = question.incorrect_answer1
-        else:
-            q_list[-1]['white1'] = question.incorrect_answer1
-            q_list[-1]['white2'] = question.incorrect_answer2
+        q_list.append({'object': question, 'answer': QuestionAttempt.objects.get(test_attempt=test_att,
+                                                                                          question=question).answer})
+        #
+        #
+        # q_list.append({'text': question.question_text, 'green': question.correct_answer})
+        # if question.incorrect_answer1 == QuestionAttempt.objects.get(test_attempt=test_att, question=question).answer:
+        #     q_list[-1]['red'] = question.incorrect_answer1
+        #     q_list[-1]['white'] = question.incorrect_answer2
+        # elif question.incorrect_answer2 == QuestionAttempt.objects.get(test_attempt=test_att, question=question).answer:
+        #     q_list[-1]['red'] = question.incorrect_answer2
+        #     q_list[-1]['white'] = question.incorrect_answer1
+        # else:
+        #     q_list[-1]['white1'] = question.incorrect_answer1
+        #     q_list[-1]['white2'] = question.incorrect_answer2
 
     print(q_list)
     return render(request, 'education/test_att_result.html', context={'test_att': test_att,

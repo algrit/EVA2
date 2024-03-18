@@ -9,3 +9,8 @@ body {
     text-align: center;
     font-size: 20px;
 }
+
+i.icon-ok {
+    color:green;
+}
+

@@ -32,28 +32,34 @@
                 <span class="title">Questions:</span>
 
                 {% for q in q_list %}
-                {% if q.object.correct_answer == q.answer %}
-                <div class="algri-container-secondary col-12 mt-4 p-3 border border-dark rounded bg-success">
-                    <div class="algri-container-primary q-text p-2 mb-3 rounded">
-                        {{ q.object.question_text }}
-                    </div>
-                    <div class="algri-container-primary p-2 mb-3 rounded">
-                        <i class="icon-ok"></i> {{ q.answer }}
-                    </div>
-                {% else %}
-                    <div class="algri-container-secondary col-12 mt-4 p-3 border border-dark rounded bg-danger">
-                        {% endif%}
-
-
-                        <br>
-                        <br>
+                <div class="algri-container-secondary col-12 mt-4 p-3 border border-dark rounded">
+                    <div class="algri-container-primary q-text p-2 mb-3 border border-dark rounded">
+                        {{ q.text }}
                     </div>
 
-                    {% endfor %}
+                    <div class="algri-container-primary p-2 mb-3 border border-dark rounded bg-success">
+                        <i class="icon-ok"></i> {{ q.green }}
+                    </div>
+
+                    {% if q.red %}
+                    <div class="algri-container-primary p-2 mb-3 border border-dark rounded bg-danger">
+                        {{ q.red }}
+                    </div>
+                    <div class="row"><span>{{ q.white }}</span></div>
+
+                    {% else %}
+                    <div class="row"><span>{{ q.white1 }}</span></div>
+                    <div class="row"><span>{{ q.white2 }}</span></div>
+                    {% endif %}
 
 
                 </div>
+                {% endfor %}
 
-            </div>
+
+
+        </div>
+
+    </div>
 </section>
 {% endblock %}
