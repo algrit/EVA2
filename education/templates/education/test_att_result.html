@@ -31,31 +31,35 @@
             <div class="algri-container-primary ps-5 pt-3 pb-3 pe-5 mt-3 border border-dark rounded">
                 <span class="title">Questions:</span>
 
-                {% for q in questions %}
+                {% for q in q_list %}
                 <div class="algri-container-secondary col-12 mt-4 p-3 border border-dark rounded">
                     <div class="algri-container-primary q-text p-2 mb-3 border border-dark rounded">
-
-                        {{ q_answers_list.qid }}
-
+                        {{ q.text }}
                     </div>
 
                     <div class="algri-container-primary p-2 mb-3 border border-dark rounded bg-success">
-                        {{ q.correct_answer }}
+                        <i class="icon-ok"></i> {{ q.green }}
                     </div>
 
+                    {% if q.red %}
+                    <div class="algri-container-primary p-2 mb-3 border border-dark rounded bg-danger">
+                        {{ q.red }}
+                    </div>
+                    <div class="row"><span>{{ q.white }}</span></div>
 
+                    {% else %}
+                    <div class="row"><span>{{ q.white1 }}</span></div>
+                    <div class="row"><span>{{ q.white2 }}</span></div>
+                    {% endif %}
 
-                    <div class="row"><span>{{ q.correct_answer }}</span></div>
-                    <div class="row"><span>{{ q.incorrect_answer1 }}</span></div>
-                    <div class="row"><span>{{ q.incorrect_answer2 }}</span></div>
-                    <div class="row"><span>{{ q.comment }}</span></div>
 
                 </div>
                 {% endfor %}
 
 
-            </div>
 
         </div>
+
+    </div>
 </section>
 {% endblock %}
