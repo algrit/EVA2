@@ -28,31 +28,29 @@
                 </div>
             </div>
 
-            <div class="algri-container-primary ps-5 pt-3 pb-3 pe-5 mt-3 border border-dark rounded">
+            <div class="algri-container-primary ps-5 pt-3 pb-3 pe-5 mt-3 mb-0 border border-dark rounded">
                 <span class="title">Questions:</span>
-
+            </div>
                 {% for q in q_list %}
                 {% if q.object.correct_answer == q.answer %}
-                <div class="algri-container-secondary col-12 mt-4 p-3 border border-dark rounded bg-success">
-                    <div class="algri-container-primary q-text p-2 mb-3 rounded">
+                <div class="algri-container-secondary col-12 mt-1 p-3 border border-dark rounded">
+                    <div class="algri-container-primary q-text p-2 mb-3 border border-dark rounded">
                         {{ q.object.question_text }}
                     </div>
-                    <div class="algri-container-primary p-2 mb-3 rounded">
+                    <div class="algri-container-corans p-2 mb-3 border border-dark rounded">
                         <i class="icon-ok"></i> {{ q.answer }}
                     </div>
-                {% else %}
-                    <div class="algri-container-secondary col-12 mt-4 p-3 border border-dark rounded bg-danger">
-                        {% endif%}
-
-
-                        <br>
-                        <br>
+                    <div class="algri-container-primary p-2 mb-3 border border-dark rounded">
+                        {{ q.object.incorrect_answer1 }}
                     </div>
-
-                    {% endfor %}
-
-
+                    <div class="algri-container-primary p-2 mb-3 border border-dark rounded">
+                        {{ q.object.incorrect_answer2 }}
+                    </div>
+                    {% else %}
+                    {% endif%}
                 </div>
+                {% endfor %}
+
 
             </div>
 </section>

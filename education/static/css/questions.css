@@ -10,6 +10,10 @@ body {
     font-size: 20px;
 }
 
+.algri-container-corans {
+    background-color: #8ee7b0
+}
+
 i.icon-ok {
     color:green;
 }
