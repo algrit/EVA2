@@ -37,7 +37,7 @@
                 {% for test in course.tests.all %}
                 <div class="p-3 mt-2 bg-white border border-dark rounded">
                     <i class="icon-book-open"></i>
-                    <a href="{% url 'start_test_warning' pk_course=course.id pk_test=test.id %}">
+                    <a href="{% url 'start_test_warning' pk_course_sub=coursesub.id pk_test=test.id %}">
                         {{ test.title }}
                     </a>
 

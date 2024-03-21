@@ -11,17 +11,32 @@
 {% block content %}
 <section class="p-4">
     <div class="container">
+        <div class="row">
+            <div class="algri-container-primary ps-5 pt-3 pb-3 pe-5 mt-3 mb-0 border border-dark rounded">
+                <span class="title">Questions:</span>
+            </div>
+        </div>
         <form method="post">
             {% csrf_token %}
             <div class="row">
                 {% for question in form %}
-                <div class="p-3 mt-3 border border-dark rounded" id="algri-container">
-                    {{ question.label }}
+                <div class="algri-container-primary p-3 mt-3 border border-dark rounded" id="algri-container">
+                    <div class="algri-container-secondary q-text p-2 mb-3 border border-dark rounded">
+                        {{ question.label }}
+                    </div>
+
                     {{ question }}
                 </div>
                 {% endfor %}
             </div>
-            <button type="button" data-bs-toggle="modal" data-bs-target="#testAttemptEndModal">End test</button>
+            <div class="row ">
+                <div class="algri-container-primary ps-5 pt-3 pb-3 pe-5 mt-3 mb-0 border border-dark rounded">
+                    <button type="button" class="algri-std-btn" data-bs-toggle="modal"
+                            data-bs-target="#testAttemptEndModal">End test
+                    </button>
+                </div>
+            </div>
+
 
             <div class="modal fade" id="testAttemptEndModal" tabindex="-1" aria-labelledby="testAttemptEndModalLabel"
                  aria-hidden="true">

@@ -15,17 +15,17 @@
         </div>
 
         <div class="row gy-4">
-            {% for course in my_courses %}
+            {% for mycourse in my_coursesubs %}
             <div class="col-12">
                 <div class="p-3 border border-dark rounded" id="algri-container">
                     <div class="row">
                         <div class="col-2">
-                            <a href="{% url 'my_course' pk=course.id %}"><img class="bg-white border border-dark rounded" id="course-icon"
-                                    src="/media/{{ course.icon }}"></a>
+                            <a href="{% url 'my_course' pk=mycourse.id %}"><img class="bg-white border border-dark rounded" id="course-icon"
+                                    src="/media/{{ mycourse.course.icon }}"></a>
                         </div>
                         <div class="col-10">
-                            <a href="{% url 'my_course' pk=course.id %}"><h4 class="p3">{{ course.title }}</h4></a>
-                            {{ course.description }}
+                            <a href="{% url 'my_course' pk=mycourse.id %}"><h4 class="p3">{{ mycourse.course.title }}</h4></a>
+                            {{ mycourse.course.description }}
                         </div>
                     </div>
                 </div>

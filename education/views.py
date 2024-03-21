@@ -88,43 +88,44 @@ def course_unsub(request, course_id: int):
 
 
 class MyCoursesView(LoginRequiredMixin, ListView):
-    context_object_name = 'my_courses'
+    context_object_name = 'my_coursesubs'
     template_name = 'education/my_courses.html'
 
     def get_queryset(self):
         user = self.request.user
         # return [sub.course for sub in CourseSubscription.objects.filter(user=user, active=1).order_by("-sub_time")]
-        sub_filter = Q(coursesubscription__user=user) & Q(coursesubscription__active=1)
-        return Course.objects.filter(sub_filter).order_by("-coursesubscription__sub_time")
+        # sub_filter = Q(coursesubscription__user=user) & Q(coursesubscription__active=1)
+        # return Course.objects.filter(sub_filter).order_by("-coursesubscription__sub_time")
+        return CourseSubscription.objects.filter(user=user, active=1).order_by("-sub_time")
 
 
 class CourseView(LoginRequiredMixin, DetailView):
-    model = Course
-    context_object_name = 'course'
+    model = CourseSubscription
+    context_object_name = 'coursesub'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
+        context['course'] = Course.objects.get(id=context['coursesub'].course.id)
         context['content'] = Content.objects.select_related('course').filter(course=context['course'])
         return context
 
 
 @login_required
-def start_test_warning(request, pk_course: int, pk_test: int):
+def start_test_warning(request, pk_course_sub: int, pk_test: int):
     test_quiz = Test.objects.get(id=pk_test)
     number_of_q = len(Question.objects.filter(test__id=pk_test))
-    course = Course.objects.get(id=pk_course)
+    course_sub = CourseSubscription.objects.get(id=pk_course_sub)
     return render(request, 'education/start_test_warning.html', context={'test_quiz': test_quiz,
                                                                          'number_of_q': number_of_q,
-                                                                         'course': course})
+                                                                         'course_sub': course_sub})
 
 
 @login_required
-def test_att_create(request, pk_course: int, pk_test: int):
+def test_att_create(request, pk_course_sub: int, pk_test: int):
     user = request.user
     test = Test.objects.get(id=pk_test)
-    course_attempt = CourseSubscription.objects.select_related('user', 'course').get(user=user, course__id=pk_course,
-                                                                                     active=1)
+    course_attempt = CourseSubscription.objects.get(id=pk_course_sub, user=user)
     test_attempt = TestAttempt(user=user, course_attempt=course_attempt, test=test)
     test_attempt.save()
     return HttpResponseRedirect((reverse('test_attempt', args=[test_attempt.id])))
@@ -204,7 +205,6 @@ def test_att_result(request, pk_test_attempt: int):
     num_corrects = len([answer for answer in q_answered if answer.question_passed == 1])
     corrects = f'{num_corrects} / {len(q_answered)}'
     percent = round(num_corrects / len(q_answered) * 100)
-    q_answers_dict = {}
     questions = Question.objects.filter(test__id=test_att.test.id)  # raw questions
     q_list = []
     for question in questions:
