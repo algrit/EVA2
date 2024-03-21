@@ -27,11 +27,17 @@
                     {% endif %}
                 </div>
             </div>
+        </div>
 
+        <div class="row">
             <div class="algri-container-primary ps-5 pt-3 pb-3 pe-5 mt-3 mb-0 border border-dark rounded">
                 <span class="title">Questions:</span>
             </div>
-            {% for q in q_list %}
+        </div>
+
+
+        {% for q in q_list %}
+        <div class="row">
             <div class="algri-container-secondary col-12 mt-1 p-3 border border-dark rounded">
                 <div class="algri-container-primary q-text p-2 mb-3 border border-dark rounded">
                     {{ q.object.question_text }}
@@ -81,9 +87,16 @@
                 {% endif %}
                 {% endif %}
             </div>
-            {% endfor %}
-
-
         </div>
+        {% endfor %}
+        <div class="row ">
+            <div class="algri-container-primary ps-5 pt-3 pb-3 pe-5 mt-3 mb-0 border border-dark rounded">
+                <a href="{% url 'my_course' test_att.course_attempt.id %}">
+                    <button type="button" class="algri-std-btn">Return to the Course</button>
+                </a>
+            </div>
+        </div>
+
+    </div>
 </section>
 {% endblock %}
