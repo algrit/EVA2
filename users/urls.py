@@ -10,7 +10,7 @@ urlpatterns = [
     path('register/success/', success_register),
     path('register/', register, name='register'),
     path('login/', LoginView.as_view(template_name='users/login.html', authentication_form=ModalLoginForm)),
-    path('logout/', LogoutView.as_view(next_page='/edu/my/')),
+    path('logout/', LogoutView.as_view(next_page='/edu/')),
     path('account/', acc_settings, name='acc_settings'),
     path('password_change/',
          PasswordChangeView.as_view(template_name='users/password_change.html', form_class=PwdChangeForm,

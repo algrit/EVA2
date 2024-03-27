@@ -9,7 +9,7 @@
         <h1>EVA</h1>
         {% if user.is_authenticated %}
         <h4>You've already logged in as {{ user.username }}</h4>
-        <a href="/edu/my">
+        <a href="{% url 'main' %}">
             <button type="button" id="ok_btn">Ok</button>
         </a>
         {% else %}

@@ -1,0 +1,27 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:300);
+
+body {
+    background: #3d3d3d;
+    font-family: "Lato", sans-serif;
+}
+
+.q-text {
+    text-align: center;
+    font-size: 20px;
+}
+
+.algri-container-corans {
+    background-color: #8ee7b0
+}
+.algri-container-incorans {
+    background-color: #f9acb7
+}
+
+i.icon-ok {
+    color:green;
+}
+
+i.icon-cancel {
+    color:red;
+}
+

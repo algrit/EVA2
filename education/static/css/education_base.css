@@ -4,8 +4,34 @@ body {
     background: linear-gradient(to bottom,  #f3f8f9 0%,#f5f7f9 100%);
 }
 
-#algri-container {
+.algri-container-primary {
     background-color: #DDDDDD
+}
+
+.algri-container-secondary {
+    background-color: #d7d1de
+}
+
+.title {
+    text-align: left;
+    font-size: 28px;
+}
+
+.algri-std-btn {
+    outline: 0;
+    background: #262725;
+    float: right;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+}
+
+i.icon-ok-circled {
+    color:green;
 }
 
 #course-icon {
@@ -29,3 +55,4 @@ body {
 #algri-subed-status {
     background: #77f568;
 }
+

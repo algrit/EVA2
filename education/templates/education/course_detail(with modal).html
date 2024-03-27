@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block scripts %}
+<link href="{% static 'css/education_base.css'%}" rel="stylesheet">
+<link href="{% static 'fontello/css/fontello.css'%}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+<section class="p-4">
+    <div class="container">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-2">
+                    <img class="bg-white border border-dark rounded" id="course-icon" src="/media/{{ course.icon }}">
+                </div>
+                <div class="col-10">
+                    <h4>{{ course.title }}</h4>
+                    {{ course.description }}
+                </div>
+            </div>
+            <div class="p-3 mt-4 border border-dark rounded" id="algri-container">
+                <h3>Educational Content:</h3>
+                {% for file in content %}
+                <div class="p-3 mt-2 bg-white border border-dark rounded">
+                    {% if file.file.name|slice:"-4:" == ".pdf" %}
+                    <i class="icon-file-pdf"></i>
+                    {% else %}
+                    <i class="icon-youtube-play"></i>
+                    {% endif %}
+                    <a href="/media/{{ file.file }}">{{ file.title }}</a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="p-3 mt-4 border border-dark rounded" id="algri-container">
+                {% for test in course.tests.all %}
+                <div class="p-3 mt-2 bg-white border border-dark rounded">
+                    <i class="icon-book-open"></i>
+                    <a href="{{ test.title }}" data-bs-toggle="modal" data-bs-target="#testAttemptStartModal"
+                       data-bs-test_name="{{ test.title }}">
+                        {{ test.title }}
+                    </a>
+
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="testAttemptStartModal" tabindex="-1" aria-labelledby="testAttemptStartModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"></h2>
+            </div>
+            <div class="modal-body">
+                <h5 class="modal-text"></h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="{% url 'test_att_create' pk_course=1 pk_test=1 %}">
+                    <button type="button" class="btn btn-primary">Ok</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/algri_js_scripts.js'%}"></script>
+{% endblock %}

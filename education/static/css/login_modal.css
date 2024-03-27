@@ -2,7 +2,7 @@
 
 @import url(https://fonts.googleapis.com/css?family=Lato:300);
 
-.modal-content {
+.algri-modal-login {
     position: relative;
     z-index: auto;
     background: #FFFFFF;
@@ -13,7 +13,7 @@
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   }
 
-.modal-content input {
+.algri-modal-login input {
     font-family: "Lato", sans-serif;
     outline: 0;
     background: #e7e4e4;
@@ -25,7 +25,7 @@
     font-size: 14px;
   }
 
-.modal-content button {
+.algri-modal-login button {
     font-family: "Lato", sans-serif;
     text-transform: uppercase;
     outline: 0;
@@ -40,11 +40,11 @@
     cursor: pointer;
   }
 
-.modal-content button:hover,.form button:active,.form button:focus {
+.algri-modal-login button:hover,.form button:active,.form button:focus {
     background: #3d3d3d;
   }
 
-.message {
+.algri-modal-login-message {
     padding-top: 15px
 }
 

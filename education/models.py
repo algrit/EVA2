@@ -12,7 +12,7 @@ class BaseContent(models.Model):
         abstract = True
 
     def __str__(self):
-        return f'{self.title} (id:{self.id})'
+        return f'{self.title}(id:{self.id})'
 
 
 class Question(BaseContent):
@@ -27,7 +27,6 @@ class Test(BaseContent):
     questions = models.ManyToManyField(Question, verbose_name='Questions in Test')
 
 
-
 class Course(BaseContent):
     tests = models.ManyToManyField(Test, verbose_name='Tests in Course')
     description = models.CharField(max_length=340, verbose_name='Description', blank=True)
@@ -36,21 +35,57 @@ class Course(BaseContent):
     class Meta:
         ordering = ['id']
 
+
 def course_directory_path(instance, filename):
     """Function is used to generate the path based on course_name for saving files in different directories"""
     return 'content/{0}/{1}'.format(instance.course.title, filename)
+
 
 class Content(BaseContent):
     course = models.ForeignKey('Course', on_delete=models.PROTECT, verbose_name='Content in Course')
     file = models.FileField(upload_to=course_directory_path, verbose_name='Content File')
 
+
 class CourseSubscription(models.Model):
     """Through-Model to connect User and Course. Realize Many-to-Many connection."""
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Student')
     course = models.ForeignKey(Course, on_delete=models.PROTECT)
+    course_score = models.FloatField(default=0, blank=True, verbose_name='Course Progress (/100)')
+    course_passed = models.BooleanField(default=False, verbose_name='Course is done (Yes/No)')
     sub_time = models.DateTimeField(auto_now_add=True, verbose_name='Subscription Time')
+    update_time = models.DateTimeField(auto_now=True, verbose_name='Time of last update')
     unsub_time = models.DateTimeField(null=True, default=None, editable=False, verbose_name='Unsub Time')
     active = models.BooleanField(default=True, editable=False)
 
     def __str__(self):
-        return f'{self.user}(id:{self.user.id}) - {self.course}(id:{self.course.id})'
+        return f'{self.user}(id:{self.user.id}) - {self.course}'
+
+
+# class CourseAttempt(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Student')
+#     course = models.ForeignKey(Course, on_delete=models.PROTECT)
+#     course_score = models.FloatField(default=0, blank=True, verbose_name='Course Progress (/100)')
+#     course_passed = models.BooleanField(default=False, verbose_name='Course is done (Yes/No)')
+#     create_time = models.DateTimeField(auto_now_add=True, verbose_name='Time of creation')
+#     update_time = models.DateTimeField(auto_now=True, verbose_name='Time of last update')
+
+
+class TestAttempt(models.Model):
+    user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Student')
+    course_attempt = models.ForeignKey(CourseSubscription, on_delete=models.PROTECT, verbose_name='Course Attempt ID')
+    test = models.ForeignKey(Test, on_delete=models.PROTECT, verbose_name='Test Quiz')
+    start_time = models.DateTimeField(auto_now_add=True, null=True, verbose_name='Test Start Time')
+    end_time = models.DateTimeField(null=True, default=None, verbose_name='Test End Time')
+    test_score = models.FloatField(default=0, blank=True, verbose_name='Test Progress (%)')
+    test_passed = models.BooleanField(default=False, verbose_name='Test is passed (Yes/No)')
+    active = models.BooleanField(default=True)
+
+class QuestionAttempt(models.Model):
+    user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Student')
+    test_attempt = models.ForeignKey(TestAttempt, on_delete=models.PROTECT, verbose_name='Test Attempt ID')
+    question = models.ForeignKey(Question, on_delete=models.PROTECT, verbose_name='Question')
+    answer = models.TextField(verbose_name='Given Answer')
+    question_passed = models.BooleanField(default=False, verbose_name='Answer is correct (Yes/No)')
+
+    def __str__(self):
+        return f'{self.title}(id:{self.id})'

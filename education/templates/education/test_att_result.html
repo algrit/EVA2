@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block scripts %}
+<link href="{% static 'css/education_base.css'%}" rel="stylesheet">
+<link href="{% static 'css/questions.css'%}" rel="stylesheet">
+<link href="{% static 'fontello/css/fontello.css'%}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+<section class="p-4">
+    <div class="container col-8">
+        <div class="row">
+            <div class="algri-container-primary ps-5 pt-3 pb-3 pe-5 border border-dark rounded">
+                <span class="title">{{ test_att.test.title }} Test</span>
+                <div class="algri-container-secondary col-12 mt-3 mb-3 p-3 border border-dark rounded">
+                    <div class="row"><span>Test started: {{ test_att.start_time }}</span></div>
+                    <div class="row"><span>Test ended: {{ test_att.end_time }}</span></div>
+                    <div class="row"><span>Time spent: {{ time_spent }}</span></div>
+                    <div class="row"><span>Correct answers: {{ corrects }}</span></div>
+                    <div class="row"><span>Percent: {{ percent }}%</span></div>
+                    {% if test_att.test_passed %}
+                    <div class="row"><span>Passed: YES</span></div>
+                    {% else %}
+                    <div class="row"><span>Passed: NO</span></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="algri-container-primary ps-5 pt-3 pb-3 pe-5 mt-3 mb-0 border border-dark rounded">
+                <span class="title">Questions:</span>
+            </div>
+        </div>
+
+
+        {% for q in q_list %}
+        <div class="row">
+            <div class="algri-container-secondary col-12 mt-1 p-3 border border-dark rounded">
+                <div class="algri-container-primary q-text p-2 mb-3 border border-dark rounded">
+                    {{ q.object.question_text }}
+                </div>
+                {% if q.object.correct_answer == q.answer %}
+
+
+                <div class="algri-container-corans p-2 mb-3 border border-dark rounded">
+                    <i class="icon-ok"></i> {{ q.answer }}
+                </div>
+
+                <div class="algri-container-primary p-2 mb-3 border border-dark rounded">
+                    {{ q.object.incorrect_answer1 }}
+                </div>
+
+                <div class="algri-container-primary p-2 mb-3 border border-dark rounded">
+                    {{ q.object.incorrect_answer2 }}
+                </div>
+
+                {% else %}
+
+                {% if q.object.incorrect_answer1 == q.answer %}
+
+                <div class="algri-container-primary p-2 mb-3 border border-dark rounded">
+                    <i class="icon-ok"></i> {{ q.object.correct_answer }}
+                </div>
+
+                <div class="algri-container-incorans p-2 mb-3 border border-dark rounded">
+                    <i class="icon-cancel"></i> {{ q.object.incorrect_answer1 }}
+                </div>
+
+                <div class="algri-container-primary p-2 mb-3 border border-dark rounded">
+                    {{ q.object.incorrect_answer2 }}
+                </div>
+                {% else %}
+                <div class="algri-container-primary p-2 mb-3 border border-dark rounded">
+                    <i class="icon-ok"></i> {{ q.object.correct_answer }}
+                </div>
+
+                <div class="algri-container-primary p-2 mb-3 border border-dark rounded">
+                    {{ q.object.incorrect_answer1 }}
+                </div>
+
+                <div class="algri-container-incorans p-2 mb-3 border border-dark rounded">
+                    <i class="icon-cancel"></i> {{ q.object.incorrect_answer2 }}
+                </div>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        <div class="row ">
+            <div class="algri-container-primary ps-5 pt-3 pb-3 pe-5 mt-3 mb-0 border border-dark rounded">
+                <a href="{% url 'my_course' test_att.course_attempt.id %}">
+                    <button type="button" class="algri-std-btn">Return to the Course</button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block scripts %}
+<link href="{% static 'css/education_base.css'%}" rel="stylesheet">
+<link href="{% static 'css/modal_window.css'%}" rel="stylesheet">
+<link href="{% static 'fontello/css/fontello.css'%}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+<section class="p-4">
+    <div class="container">
+        <div class="row">
+            <div class="algri-container-primary ps-5 pt-3 pb-3 pe-5 mt-3 mb-0 border border-dark rounded">
+                <span class="title">Questions:</span>
+            </div>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                {% for question in form %}
+                <div class="algri-container-primary p-3 mt-3 border border-dark rounded" id="algri-container">
+                    <div class="algri-container-secondary q-text p-2 mb-3 border border-dark rounded">
+                        {{ question.label }}
+                    </div>
+
+                    {{ question }}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="row ">
+                <div class="algri-container-primary ps-5 pt-3 pb-3 pe-5 mt-3 mb-0 border border-dark rounded">
+                    <button type="button" class="algri-std-btn" data-bs-toggle="modal"
+                            data-bs-target="#testAttemptEndModal">End test
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="testAttemptEndModal" tabindex="-1" aria-labelledby="testAttemptEndModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">End test</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to end test?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">End test</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
