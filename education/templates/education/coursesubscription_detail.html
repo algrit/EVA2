@@ -20,7 +20,7 @@
                     {{ course.description }}
                 </div>
             </div>
-            <div class="p-3 mt-4 border border-dark rounded" id="algri-container">
+            <div class="algri-container-secondary p-3 mt-4 border border-dark rounded" id="algri-container">
                 <h3>Educational Content:</h3>
                 {% for file in content %}
                 <div class="p-3 mt-2 bg-white border border-dark rounded">
@@ -33,14 +33,17 @@
                 </div>
                 {% endfor %}
             </div>
-            <div class="p-3 mt-4 border border-dark rounded" id="algri-container">
+            <div class="algri-container-secondary p-3 mt-4 border border-dark rounded" id="algri-container">
+                <h3>Tests:</h3>
                 {% for test in course.tests.all %}
                 <div class="p-3 mt-2 bg-white border border-dark rounded">
                     <i class="icon-book-open"></i>
                     <a href="{% url 'start_test_warning' pk_course_sub=coursesub.id pk_test=test.id %}">
                         {{ test.title }}
                     </a>
-
+                    {% if test.id in test_progress_list %}
+                    <i class="icon-ok-circled"></i>
+                    {% endif %}
                 </div>
                 {% endfor %}
             </div>

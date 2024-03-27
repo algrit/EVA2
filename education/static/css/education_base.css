@@ -30,6 +30,10 @@ body {
     cursor: pointer;
 }
 
+i.icon-ok-circled {
+    color:green;
+}
+
 #course-icon {
     max-width:100%;
     max-height: 100%

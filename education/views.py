@@ -108,6 +108,10 @@ class CourseView(LoginRequiredMixin, DetailView):
         context['user'] = self.request.user
         context['course'] = Course.objects.get(id=context['coursesub'].course.id)
         context['content'] = Content.objects.select_related('course').filter(course=context['course'])
+        context['test_progress_list'] = [i.test.id for i in
+                                         TestAttempt.objects.filter(course_attempt=context['coursesub'].id,
+                                                                    test_passed=1)
+                                         .order_by('test__id').distinct('test__id')]
         return context
 
 
@@ -209,7 +213,7 @@ def test_att_result(request, pk_test_attempt: int):
     q_list = []
     for question in questions:
         q_list.append({'object': question, 'answer': QuestionAttempt.objects.get(test_attempt=test_att,
-                                                                                          question=question).answer})
+                                                                                 question=question).answer})
     return render(request, 'education/test_att_result.html', context={'test_att': test_att,
                                                                       'time_spent': time_spent, 'corrects': corrects,
                                                                       'percent': percent, 'q_list': q_list})
