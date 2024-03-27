@@ -10,45 +10,78 @@
 {% block content %}
 <section class="p-4">
     <div class="container">
-        <div class="col-12">
-            <div class="row">
-                <div class="col-2">
-                    <img class="bg-white border border-dark rounded" id="course-icon" src="/media/{{ course.icon }}">
-                </div>
-                <div class="col-10">
-                    <h4>{{ course.title }}</h4>
-                    {{ course.description }}
+        <div class="row">
+            <div class="col-2">
+                <img class="bg-white border border-dark rounded" id="course-icon" src="/media/{{ course.icon }}">
+            </div>
+            <div class="col-10">
+                <h4>{{ course.title }}</h4>
+                {{ course.description }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="algri-container-primary p-3 mt-4 border border-dark rounded">
+                    <div class="row">
+                        <h3>Exam:</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-10"><p>Access to the exam will be available when all tests are passed.</p>
+                            <p>Test progress at the moment: {{ test_progress_list|length }} /
+                                {{course.tests.all|length}}</p>
+                        </div>
+                        <div class="col-2">
+                            {% if test_progress_list|length == course.tests.all|length %}
+                            <button class="mt-1 border border-warning rounded" id="algri-exam-btn">Exam</button>
+                            {% else %}
+                            <button class="mt-1 border border-warning rounded" data-bs-toggle="tooltip"
+                                        title="Access to the exam will be available when all tests are passed." id="algri-exam-disabled-btn" disabled>Exam</button>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="algri-container-secondary p-3 mt-4 border border-dark rounded" id="algri-container">
-                <h3>Educational Content:</h3>
-                {% for file in content %}
-                <div class="p-3 mt-2 bg-white border border-dark rounded">
-                    {% if file.file.name|slice:"-4:" == ".pdf" %}
-                    <i class="icon-file-pdf"></i>
-                    {% else %}
-                    <i class="icon-youtube-play"></i>
-                    {% endif %}
-                    <a href="/media/{{ file.file }}">{{ file.title }}</a>
+
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="algri-container-secondary p-3 mt-4 border border-dark rounded">
+                    <h3>Educational Content:</h3>
+                    {% for file in content %}
+                    <div class="p-3 mt-2 bg-white border border-dark rounded">
+                        {% if file.file.name|slice:"-4:" == ".pdf" %}
+                        <i class="icon-file-pdf"></i>
+                        {% else %}
+                        <i class="icon-youtube-play"></i>
+                        {% endif %}
+                        <a href="/media/{{ file.file }}">{{ file.title }}</a>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
-            <div class="algri-container-secondary p-3 mt-4 border border-dark rounded" id="algri-container">
-                <h3>Tests:</h3>
-                {% for test in course.tests.all %}
-                <div class="p-3 mt-2 bg-white border border-dark rounded">
-                    <i class="icon-book-open"></i>
-                    <a href="{% url 'start_test_warning' pk_course_sub=coursesub.id pk_test=test.id %}">
-                        {{ test.title }}
-                    </a>
-                    {% if test.id in test_progress_list %}
-                    <i class="icon-ok-circled"></i>
-                    {% endif %}
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="algri-container-secondary p-3 mt-4 border border-dark rounded">
+                    <h3>Tests:</h3>
+                    {% for test in course.tests.all %}
+                    <div class="p-3 mt-2 bg-white border border-dark rounded">
+                        <i class="icon-book-open"></i>
+                        <a href="{% url 'start_test_warning' pk_course_sub=coursesub.id pk_test=test.id %}">
+                            {{ test.title }}
+                        </a>
+                        {% if test.id in test_progress_list %}
+                        <i class="icon-ok-circled"></i>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
     </div>
+
 </section>
 
 {% endblock %}
